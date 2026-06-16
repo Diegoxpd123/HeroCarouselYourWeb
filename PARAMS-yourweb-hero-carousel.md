@@ -160,11 +160,11 @@ Ejemplo:
 
 - `height`
   - Alto del hero.
-  - Default: `100svh`
+  - Default: `100%` (respeta la altura del Custom Element en Wix)
 
 - `min-height`
   - Alto minimo.
-  - Default: `620px`
+  - Default: `320px`
 
 - `ghost-size`
   - Tamano del texto gigante.
