@@ -283,6 +283,12 @@ Nota: por defecto las imagenes/videos no tienen borde negro ni sombra fuerte. Si
   - `on` / `off`
   - Default: `on`
 
+- `remove-white-bg`
+  - Intenta ocultar visualmente fondos blancos de imagenes/GIF usando `mix-blend-mode: multiply`.
+  - `on` / `off`
+  - Default: `on`
+  - Nota: no reemplaza una transparencia real; si el personaje tiene partes claras tambien puede afectarlas.
+
 Ejemplo:
 
 ```html
@@ -291,7 +297,8 @@ Ejemplo:
   interval="1200"
   transition-ms="700"
   controls="off"
-  grain="on">
+  grain="on"
+  remove-white-bg="on">
 </yourweb-hero-carousel>
 ```
 

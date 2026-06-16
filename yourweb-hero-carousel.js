@@ -124,6 +124,7 @@
     ".item{position:absolute;aspect-ratio:.6/1;will-change:transform,filter,opacity,left,bottom,height;transition:transform var(--yw-transition-ms) cubic-bezier(.4,0,.2,1),filter var(--yw-transition-ms) cubic-bezier(.4,0,.2,1),opacity var(--yw-transition-ms) cubic-bezier(.4,0,.2,1),left var(--yw-transition-ms) cubic-bezier(.4,0,.2,1),bottom var(--yw-transition-ms) cubic-bezier(.4,0,.2,1),height var(--yw-transition-ms) cubic-bezier(.4,0,.2,1);}",
     ".figure{position:relative;width:100%;height:100%;overflow:visible;}",
     ".media{width:100%;height:100%;object-fit:contain;object-position:bottom center;display:block;filter:none;}",
+    ".media.remove-white-bg{mix-blend-mode:multiply;}",
     ".item[data-role=center]{left:var(--yw-stage-center);bottom:var(--yw-center-bottom);height:var(--yw-center-height);z-index:20;opacity:1;filter:blur(0);transform:translateX(-50%) scale(var(--yw-center-scale));}",
     ".item[data-role=left],.item[data-role=right]{bottom:var(--yw-side-bottom);height:var(--yw-side-height);z-index:10;opacity:.84;filter:blur(2px);transform:translateX(-50%) scale(var(--yw-side-scale));}",
     ".item[data-role=left]{left:var(--yw-left-pos);}",
@@ -216,7 +217,7 @@
         "side-bottom", "side-bottom-mobile", "back-bottom", "back-bottom-mobile",
         "left-pos", "right-pos", "left-pos-mobile", "right-pos-mobile",
         "stage-center", "stage-center-mobile",
-        "autoplay", "interval", "transition-ms", "controls", "grain"
+        "autoplay", "interval", "transition-ms", "controls", "grain", "remove-white-bg"
       ];
     }
 
@@ -374,11 +375,15 @@
       var role = this._roleFor(index);
       var media = "";
       if (slide.type === "video") {
-        media = '<video class="media" src="' + this._escapeAttr(slide.media) + '" autoplay muted loop playsinline preload="metadata"></video>';
+        media = '<video class="media' + this._removeWhiteBgClass() + '" src="' + this._escapeAttr(slide.media) + '" autoplay muted loop playsinline preload="metadata"></video>';
       } else {
-        media = '<img class="media" src="' + this._escapeAttr(slide.media) + '" alt="' + this._escapeAttr(slide.label) + '" draggable="false" />';
+        media = '<img class="media' + this._removeWhiteBgClass() + '" src="' + this._escapeAttr(slide.media) + '" alt="' + this._escapeAttr(slide.label) + '" draggable="false" />';
       }
       return '<article class="item" data-index="' + index + '" data-role="' + role + '" style="--panel:' + this._escapeAttr(slide.panel) + '" aria-hidden="' + String(role !== "center") + '"><div class="figure">' + media + '</div></article>';
+    }
+
+    _removeWhiteBgClass() {
+      return this._isOff(this.getAttribute("remove-white-bg")) ? "" : " remove-white-bg";
     }
 
     _updateScene() {
