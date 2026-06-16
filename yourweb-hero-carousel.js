@@ -219,6 +219,7 @@
         "panel-1", "panel-2", "panel-3", "panel-4",
         "label-1", "label-2", "label-3", "label-4",
         "caption-1", "caption-2", "caption-3", "caption-4",
+        "title-1", "title-2", "title-3", "title-4",
         "brand", "title", "cta-label", "cta-href",
         "ghost-text", "font-family", "display-font", "text-color", "button-bg", "button-text",
         "height", "min-height", "ghost-size", "ghost-size-desktop", "ghost-size-tablet", "ghost-size-mobile", "title-size",
@@ -297,7 +298,8 @@
           bg: this._getAttr("bg-" + i, base.bg),
           panel: this._getAttr("panel-" + i, base.panel),
           label: this._getAttr("label-" + i, base.label),
-          caption: this._getAttr("caption-" + i, base.caption)
+          caption: this._getAttr("caption-" + i, base.caption),
+          title: this._getAttr("title-" + i, this._getAttr("title", "Hero animado configurable"))
         });
       }
       return slides;
@@ -384,7 +386,7 @@
         '</div>' +
         '<div class="content">' +
         '<p class="active" data-active-label>' + this._escape(active.label + " / " + active.caption) + '</p>' +
-        '<h1>' + this._escape(this._getAttr("title", "Hero animado configurable")) + '</h1>' +
+        '<h1 data-active-title>' + this._escape(active.title) + '</h1>' +
         '</div>' +
         (controlsVisible
           ? '<div class="controls"><button class="control" type="button" data-dir="prev" aria-label="Anterior">‹</button><button class="control" type="button" data-dir="next" aria-label="Siguiente">›</button></div>'
@@ -417,9 +419,11 @@
       var slides = this._getSlides();
       var active = slides[this._activeIndex] || slides[0];
       var activeLabel = this._root.querySelector("[data-active-label]");
+      var activeTitle = this._root.querySelector("[data-active-title]");
 
       this.style.setProperty("--yw-active-bg", active.bg);
       if (activeLabel) activeLabel.textContent = active.label + " / " + active.caption;
+      if (activeTitle) activeTitle.textContent = active.title;
 
       this._root.querySelectorAll("[data-index]").forEach((item) => {
         var index = parseInt(item.getAttribute("data-index"), 10);

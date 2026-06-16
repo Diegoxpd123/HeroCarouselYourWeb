@@ -71,14 +71,20 @@ Ejemplo:
 - `caption-1`, `caption-2`, `caption-3`, `caption-4`
   - Descripcion corta del slide activo.
 
+- `title-1`, `title-2`, `title-3`, `title-4`
+  - Titulo grande que cambia con cada slide.
+  - Si no defines estos, usa el valor general de `title`.
+
 Ejemplo:
 
 ```html
 <yourweb-hero-carousel
   label-1="Luna"
   caption-1="Chequeo preventivo"
+  title-1="Cuidado preventivo"
   label-2="Max"
-  caption-2="Vacunas y bienestar">
+  caption-2="Vacunas y bienestar"
+  title-2="Vacunas al dia">
 </yourweb-hero-carousel>
 ```
 
@@ -94,20 +100,8 @@ Ejemplo:
   - Texto gigante de fondo.
   - Default: `PETCARE`
 
-- `eyebrow`
-  - Texto pequeno encima del titulo.
-
 - `title`
-  - Titulo principal.
-
-- `body`
-  - Parrafo descriptivo.
-
-- `cta-label`
-  - Texto del boton.
-
-- `cta-href`
-  - Link del boton.
+  - Titulo principal general. Se usa como fallback si no defines `title-1`, `title-2`, `title-3` o `title-4`.
 
 Ejemplo:
 
@@ -115,11 +109,7 @@ Ejemplo:
 <yourweb-hero-carousel
   brand="PETCARE"
   ghost-text="PETCARE"
-  eyebrow="Veterinaria moderna"
-  title="Cuidado profesional para mascotas"
-  body="Agenda consultas, vacunas y grooming desde un solo lugar."
-  cta-label="Agendar cita"
-  cta-href="https://tusitio.com/contacto">
+  title="Cuidado profesional para mascotas">
 </yourweb-hero-carousel>
 ```
 
