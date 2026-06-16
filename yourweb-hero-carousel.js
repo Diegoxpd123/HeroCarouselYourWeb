@@ -88,11 +88,11 @@
     "  --yw-side-bottom-mobile:34%;",
     "  --yw-back-bottom:12%;",
     "  --yw-back-bottom-mobile:34%;",
-    "  --yw-left-pos:58%;",
-    "  --yw-right-pos:92%;",
+    "  --yw-left-pos:30%;",
+    "  --yw-right-pos:70%;",
     "  --yw-left-pos-mobile:18%;",
     "  --yw-right-pos-mobile:82%;",
-    "  --yw-stage-center:70%;",
+    "  --yw-stage-center:50%;",
     "  --yw-stage-center-mobile:50%;",
     "  --yw-transition-ms:650ms;",
     "  --yw-primary:#ffffff;",
@@ -129,7 +129,7 @@
     ".item[data-role=left]{left:var(--yw-left-pos);}",
     ".item[data-role=right]{left:var(--yw-right-pos);}",
     ".item[data-role=back]{left:var(--yw-stage-center);bottom:var(--yw-back-bottom);height:var(--yw-back-height);z-index:5;opacity:.58;filter:blur(3px);transform:translateX(-50%) scale(var(--yw-back-scale));}",
-    ".content{position:absolute;left:clamp(18px,5vw,62px);top:50%;transform:translateY(-42%);z-index:20;width:min(44%,520px);max-width:calc(100% - 36px);text-shadow:none;}",
+    ".content{position:absolute;left:clamp(18px,5vw,62px);top:58%;transform:translateY(-34%);z-index:20;width:min(42%,500px);max-width:calc(100% - 36px);text-shadow:none;}",
     ".brand{position:absolute;left:clamp(18px,4vw,54px);top:clamp(16px,3vw,30px);z-index:21;font-size:clamp(.58rem,1vw,.72rem);font-weight:800;letter-spacing:.22em;text-transform:uppercase;}",
     ".eyebrow,.active{margin:0 0 10px;font-size:.78rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;}",
     ".active{color:rgba(255,255,255,.9);}",
@@ -158,14 +158,40 @@
     "  .controls{right:16px;bottom:auto;top:74px;}",
     "  .control{width:40px;height:40px;}",
     "}",
+    "@media(max-width:420px){",
+    "  :host{--yw-min-height:560px;--yw-ghost-size:clamp(52px,24vw,96px);--yw-title-size:clamp(32px,12vw,50px);--yw-center-height-mobile:38%;--yw-side-height-mobile:13%;--yw-back-height-mobile:10%;--yw-center-bottom-mobile:30%;}",
+    "  .brand{left:14px;top:14px;font-size:.52rem;letter-spacing:.18em;}",
+    "  .ghost{top:13%;}",
+    "  .eyebrow,.active{font-size:.58rem;letter-spacing:.14em;margin-bottom:7px;}",
+    "  .content{left:14px;right:14px;bottom:20px;}",
+    "  h1{max-width:8.8ch;}",
+    "  .body{max-width:270px;font-size:.8rem;line-height:1.45;}",
+    "  .controls{right:12px;top:58px;gap:7px;}",
+    "  .control{width:34px;height:34px;font-size:.9rem;}",
+    "}",
+    "@media(max-width:340px){",
+    "  :host{--yw-min-height:520px;--yw-ghost-size:clamp(46px,23vw,78px);--yw-title-size:clamp(28px,12vw,42px);--yw-center-height-mobile:34%;--yw-side-height-mobile:11%;--yw-center-bottom-mobile:32%;--yw-left-pos-mobile:16%;--yw-right-pos-mobile:84%;}",
+    "  .brand{font-size:.48rem;letter-spacing:.16em;}",
+    "  .content{left:12px;right:12px;bottom:16px;}",
+    "  .eyebrow,.active{font-size:.5rem;letter-spacing:.12em;margin-bottom:6px;}",
+    "  .body{max-width:240px;font-size:.74rem;line-height:1.4;}",
+    "  .controls{top:48px;right:10px;}",
+    "  .control{width:30px;height:30px;}",
+    "}",
+    "@media(max-width:300px){",
+    "  :host{--yw-min-height:500px;--yw-title-size:30px;--yw-ghost-size:58px;--yw-center-height-mobile:32%;--yw-center-bottom-mobile:33%;}",
+    "  .brand{max-width:160px;line-height:1.35;}",
+    "  h1{max-width:8ch;}",
+    "  .body{max-width:220px;font-size:.7rem;}",
+    "}",
     "@media(min-width:701px) and (max-width:980px){",
-    "  :host{--yw-title-size:clamp(42px,7vw,72px);--yw-ghost-size:clamp(96px,23vw,230px);--yw-center-height:66%;--yw-center-scale:1.06;--yw-stage-center:72%;--yw-left-pos:55%;--yw-right-pos:91%;}",
+    "  :host{--yw-title-size:clamp(42px,7vw,72px);--yw-ghost-size:clamp(96px,23vw,230px);--yw-center-height:66%;--yw-center-scale:1.06;--yw-stage-center:50%;--yw-left-pos:30%;--yw-right-pos:70%;}",
     "  .content{width:min(46%,430px);}",
     "  .body{max-width:330px;}",
     "}",
     "@media(max-height:520px){",
     "  :host{--yw-min-height:430px;--yw-title-size:clamp(34px,8vw,58px);--yw-ghost-size:clamp(80px,20vw,170px);--yw-center-height:68%;}",
-    "  .content{top:54%;}",
+    "  .content{top:60%;}",
     "  .body{display:none;}",
     "}",
   ].join("");
@@ -319,9 +345,6 @@
 
       var controlsHidden = this._isOff(this.getAttribute("controls")) ? " is-hidden" : "";
       var grain = this._isOff(this.getAttribute("grain")) ? "" : '<div class="grain" aria-hidden="true"></div>';
-      var ctaHref = this._getAttr("cta-href", "#");
-      var ctaLabel = this._getAttr("cta-label", "Reservar ahora");
-
       var html = grain +
         '<div class="brand">' + this._escape(this._getAttr("brand", "YOURWEB HERO")) + '</div>' +
         '<div class="ghost" aria-hidden="true">' + this._escape(this._getAttr("ghost-text", "PETCARE")) + '</div>' +
@@ -333,7 +356,6 @@
         '<p class="active">' + this._escape(active.label + " / " + active.caption) + '</p>' +
         '<h1>' + this._escape(this._getAttr("title", "Hero animado configurable")) + '</h1>' +
         '<p class="body">' + this._escape(this._getAttr("body", "Cambia imagenes, videos, fondos RGB, tamanos, velocidad y textos desde los atributos del Custom Element.")) + '</p>' +
-        '<a class="cta" href="' + this._normalizeHref(ctaHref) + '">' + this._escape(ctaLabel) + ' <span aria-hidden="true">-></span></a>' +
         '</div>' +
         '<div class="controls' + controlsHidden + '">' +
         '<button class="control" type="button" data-dir="prev" aria-label="Anterior">‹</button>' +
