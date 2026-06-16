@@ -227,6 +227,7 @@ Desktop:
 - `back-bottom`
 - `left-pos`
 - `right-pos`
+- `stage-center`
 
 Mobile:
 
@@ -235,6 +236,7 @@ Mobile:
 - `back-bottom-mobile`
 - `left-pos-mobile`
 - `right-pos-mobile`
+- `stage-center-mobile`
 
 Ejemplo:
 
@@ -243,13 +245,17 @@ Ejemplo:
   center-bottom="0%"
   side-bottom="12%"
   back-bottom="12%"
-  left-pos="30%"
-  right-pos="70%"
+  stage-center="70%"
+  left-pos="58%"
+  right-pos="92%"
   center-bottom-mobile="23%"
+  stage-center-mobile="50%"
   left-pos-mobile="20%"
   right-pos-mobile="80%">
 </yourweb-hero-carousel>
 ```
+
+Nota: por defecto las imagenes/videos no tienen borde negro ni sombra fuerte. Si quieres sombra, es mejor agregarla directamente al archivo de imagen o pedirme una version con atributo `media-shadow`.
 
 ---
 
