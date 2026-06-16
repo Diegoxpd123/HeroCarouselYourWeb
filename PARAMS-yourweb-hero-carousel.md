@@ -167,7 +167,16 @@ Ejemplo:
   - Default: `320px`
 
 - `ghost-size`
-  - Tamano del texto gigante.
+  - Tamano general del texto gigante. Para controlar por breakpoint usa los 3 siguientes.
+
+- `ghost-size-desktop`
+  - Tamano del texto gigante en desktop.
+
+- `ghost-size-tablet`
+  - Tamano del texto gigante en tablet.
+
+- `ghost-size-mobile`
+  - Tamano del texto gigante en movil.
 
 - `title-size`
   - Tamano del titulo principal.
@@ -178,7 +187,9 @@ Ejemplo:
 <yourweb-hero-carousel
   height="720px"
   min-height="560px"
-  ghost-size="clamp(80px, 24vw, 320px)"
+  ghost-size-desktop="clamp(90px, 24vw, 330px)"
+  ghost-size-tablet="clamp(80px, 22vw, 230px)"
+  ghost-size-mobile="clamp(64px, 25vw, 118px)"
   title-size="clamp(42px, 8vw, 90px)">
 </yourweb-hero-carousel>
 ```
@@ -190,29 +201,39 @@ Ejemplo:
 Desktop:
 
 - `center-height`
+- `center-height-desktop`
+- `center-height-tablet`
+- `center-height-mobile`
 - `side-height`
+- `side-height-desktop`
+- `side-height-tablet`
+- `side-height-mobile`
 - `back-height`
+- `back-height-desktop`
+- `back-height-tablet`
+- `back-height-mobile`
 - `center-scale`
+- `center-scale-desktop`
+- `center-scale-tablet`
+- `center-scale-mobile`
 - `side-scale`
 - `back-scale`
 
-Mobile:
-
-- `center-height-mobile`
-- `side-height-mobile`
-- `back-height-mobile`
-- `center-scale-mobile`
+Nota: `center-height`, `side-height`, `back-height` y `center-scale` siguen funcionando como version desktop/base.
 
 Ejemplo:
 
 ```html
 <yourweb-hero-carousel
-  center-height="82%"
-  side-height="28%"
-  back-height="22%"
-  center-scale="1.34"
-  center-height-mobile="48%"
-  side-height-mobile="15%">
+  center-height-desktop="82%"
+  center-height-tablet="70%"
+  center-height-mobile="78%"
+  side-height-desktop="28%"
+  side-height-tablet="24%"
+  side-height-mobile="26%"
+  back-height-desktop="22%"
+  back-height-tablet="20%"
+  back-height-mobile="22%">
 </yourweb-hero-carousel>
 ```
 
