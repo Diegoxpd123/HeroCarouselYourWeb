@@ -208,7 +208,7 @@
         "panel-1", "panel-2", "panel-3", "panel-4",
         "label-1", "label-2", "label-3", "label-4",
         "caption-1", "caption-2", "caption-3", "caption-4",
-        "brand", "eyebrow", "title", "body", "cta-label", "cta-href",
+        "brand", "title", "cta-label", "cta-href",
         "ghost-text", "font-family", "display-font", "text-color", "button-bg", "button-text",
         "height", "min-height", "ghost-size", "title-size",
         "center-height", "center-height-mobile", "side-height", "side-height-mobile",
@@ -353,10 +353,8 @@
         slides.map((slide, index) => this._renderItem(slide, index)).join("") +
         '</div>' +
         '<div class="content">' +
-        '<p class="eyebrow">' + this._escape(this._getAttr("eyebrow", "Animacion custom para Wix")) + '</p>' +
         '<p class="active" data-active-label>' + this._escape(active.label + " / " + active.caption) + '</p>' +
         '<h1>' + this._escape(this._getAttr("title", "Hero animado configurable")) + '</h1>' +
-        '<p class="body">' + this._escape(this._getAttr("body", "Cambia imagenes, videos, fondos RGB, tamanos, velocidad y textos desde los atributos del Custom Element.")) + '</p>' +
         '</div>' +
         '<div class="controls' + controlsHidden + '">' +
         '<button class="control" type="button" data-dir="prev" aria-label="Anterior">‹</button>' +
