@@ -258,6 +258,12 @@
       return v === "off" || v === "false" || v === "0" || v === "no";
     }
 
+    _isOn(value) {
+      if (value == null || value === "") return false;
+      var v = String(value).toLowerCase().trim();
+      return v === "on" || v === "true" || v === "1" || v === "yes";
+    }
+
     _getAttr(name, fallback) {
       var value = this.getAttribute(name);
       return value == null || value === "" ? fallback : value;
@@ -344,7 +350,7 @@
       var active = slides[this._activeIndex] || slides[0];
       this.style.setProperty("--yw-active-bg", active.bg);
 
-      var controlsHidden = this._isOff(this.getAttribute("controls")) ? " is-hidden" : "";
+      var controlsVisible = this._isOn(this.getAttribute("controls"));
       var grain = this._isOff(this.getAttribute("grain")) ? "" : '<div class="grain" aria-hidden="true"></div>';
       var html = grain +
         '<div class="brand">' + this._escape(this._getAttr("brand", "YOURWEB HERO")) + '</div>' +
@@ -356,10 +362,9 @@
         '<p class="active" data-active-label>' + this._escape(active.label + " / " + active.caption) + '</p>' +
         '<h1>' + this._escape(this._getAttr("title", "Hero animado configurable")) + '</h1>' +
         '</div>' +
-        '<div class="controls' + controlsHidden + '">' +
-        '<button class="control" type="button" data-dir="prev" aria-label="Anterior">‹</button>' +
-        '<button class="control" type="button" data-dir="next" aria-label="Siguiente">›</button>' +
-        '</div>';
+        (controlsVisible
+          ? '<div class="controls"><button class="control" type="button" data-dir="prev" aria-label="Anterior">‹</button><button class="control" type="button" data-dir="next" aria-label="Siguiente">›</button></div>'
+          : '');
 
       this._root.innerHTML = html;
       this._root.querySelectorAll("[data-dir]").forEach((button) => {
