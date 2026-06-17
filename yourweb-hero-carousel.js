@@ -74,7 +74,7 @@
     '    bottom    var(--yw-transition-ms) cubic-bezier(.4,0,.2,1),',
     '    height    var(--yw-transition-ms) cubic-bezier(.4,0,.2,1);}',
 
-    '.figure{position:relative;width:100%;height:100%;overflow:hidden;background:var(--panel,transparent);}',
+    '.figure{position:relative;width:100%;height:100%;overflow:hidden;}',
     '.media{width:100%;height:100%;object-fit:contain;object-position:bottom center;display:block;}',
 
     /* Roles */
