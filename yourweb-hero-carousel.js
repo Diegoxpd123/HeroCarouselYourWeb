@@ -116,26 +116,9 @@
     '  .item.yw-loading .figure::after{animation:none;background:rgba(255,255,255,.08);}',
     '}',
 
-    /* ─────────────────────────────────────────────────────────────────────
-       MOBILE ≤700px
-       KEY PERF FIX: only GPU-composited properties (transform + opacity)
-       transition on mobile. left/bottom/height change instantly (no reflow
-       during animation). blur filter removed (very expensive on mobile GPU).
-    ───────────────────────────────────────────────────────────────────── */
     '@media(max-width:700px){',
     '  :host{--yw-min-height:480px;}',
-    '  .hero{transition:background-color 480ms cubic-bezier(.4,0,.2,1);}',
     '  .hero::before{background:linear-gradient(180deg,rgba(0,0,0,.1),rgba(0,0,0,.02) 48%,rgba(0,0,0,.22));}',
-
-    /* GPU-only transition on mobile — no layout properties, no filter */
-    '  .item{',
-    '    transition:transform 480ms cubic-bezier(.4,0,.2,1),opacity 480ms cubic-bezier(.4,0,.2,1);',
-    '    will-change:transform,opacity;',
-    '  }',
-
-    /* Remove blur filter entirely on mobile (main perf bottleneck) */
-    '  .item[data-role=left],.item[data-role=right]{filter:none;}',
-    '  .item[data-role=back]{filter:none;}',
 
     /* Mobile role positions */
     '  .item[data-role=center]{left:var(--yw-stage-center-mobile);height:var(--yw-center-height-mobile);bottom:var(--yw-center-bottom-mobile);transform:translateX(-50%) scale(var(--yw-center-scale-mobile));}',
@@ -217,16 +200,14 @@
 
     constructor() {
       super();
-      this._activeIndex    = 0;
-      this._locked         = false;
-      this._timer          = 0;
-      this._adjacentTimer  = 0;
-      this._observer       = null;
-      this._isVisible      = true;
-      this._isHovered      = false;
-      this._touchStartX    = 0;
+      this._activeIndex       = 0;
+      this._locked            = false;
+      this._timer             = 0;
+      this._observer          = null;
+      this._isVisible         = true;
+      this._isHovered         = false;
+      this._touchStartX       = 0;
       this._interactionsSetup = false;
-      this._centerLoaded   = false;
       this.attachShadow({ mode: 'open' });
       var style = document.createElement('style');
       style.textContent = STYLE;
@@ -244,17 +225,14 @@
 
     disconnectedCallback() {
       this._stopAutoplay();
-      if (this._adjacentTimer) window.clearTimeout(this._adjacentTimer);
       if (this._observer) { this._observer.disconnect(); this._observer = null; }
     }
 
     attributeChangedCallback() {
       if (!this.shadowRoot || !this._root) return;
       this._applyVars();
-      this._centerLoaded = false;
       this._render();
       this._startAutoplay();
-      if (this._isVisible) this._loadCenterMedia();
     }
 
     /* ── helpers ── */
@@ -375,19 +353,16 @@
         dot.addEventListener('click', () => this._goTo(parseInt(dot.getAttribute('data-goto'), 10)))
       );
 
-      // All items start with shimmer — nothing loads until explicitly triggered
-      this._root.querySelectorAll('.item').forEach(item => item.classList.add('yw-loading'));
-
       this._updateScene();
     }
 
-    /* All slides use data-src — zero network requests on initial render */
     _renderItem(slide, index) {
       var role = this._roleFor(index);
+      var isCenter = role === 'center';
       var media = slide.type === 'video'
-        ? '<video class="media" data-src="' + this._escapeAttr(slide.media) + '" muted loop playsinline preload="none"></video>'
-        : '<img  class="media" data-src="' + this._escapeAttr(slide.media) + '" alt="' + this._escapeAttr(slide.label) + '" decoding="async" draggable="false" />';
-      return '<article class="item" data-index="' + index + '" data-role="' + role + '" style="--panel:' + this._escapeAttr(slide.panel) + '" aria-hidden="' + String(role !== 'center') + '"><div class="figure">' + media + '</div></article>';
+        ? '<video class="media" src="' + this._escapeAttr(slide.media) + '" ' + (isCenter ? 'autoplay ' : '') + 'muted loop playsinline preload="' + (isCenter ? 'auto' : 'none') + '"></video>'
+        : '<img  class="media" src="' + this._escapeAttr(slide.media) + '" alt="' + this._escapeAttr(slide.label) + '" ' + (isCenter ? 'fetchpriority="high" loading="eager"' : 'loading="lazy"') + ' decoding="async" draggable="false" />';
+      return '<article class="item" data-index="' + index + '" data-role="' + role + '" aria-hidden="' + String(!isCenter) + '"><div class="figure">' + media + '</div></article>';
     }
 
     _updateScene() {
@@ -410,7 +385,7 @@
         if (cta) cta.animate(fade, Object.assign({}, opts, { duration: 360, delay: 190 }));
       }
 
-      // Update roles + promote center media + manage video
+      // Update roles + manage video play/pause
       this._root.querySelectorAll('[data-index]').forEach(item => {
         var idx  = parseInt(item.getAttribute('data-index'), 10);
         var role = this._roleFor(idx);
@@ -418,12 +393,8 @@
         item.setAttribute('aria-hidden', String(role !== 'center'));
 
         var media = item.querySelector('.media');
-        if (!media) return;
-
-        if (role === 'center' && media.getAttribute('data-src')) {
-          this._promoteMedia(item, media, true);
-        } else if (!media.getAttribute('data-src') && media.tagName === 'VIDEO') {
-          if (role === 'center') { if (media.paused) media.play().catch(() => {}); }
+        if (media && media.tagName === 'VIDEO') {
+          if (role === 'center') { if (media.paused)  media.play().catch(() => {}); }
           else                   { if (!media.paused) media.pause(); }
         }
       });
@@ -434,77 +405,12 @@
       );
     }
 
-    /* Assign src from data-src, remove shimmer, manage video */
-    _promoteMedia(item, media, isCenter) {
-      var src = media.getAttribute('data-src');
-      if (!src) return;
-      media.removeAttribute('data-src');
-      media.src = src;
-      if (isCenter && media.tagName === 'IMG') media.setAttribute('fetchpriority', 'high');
-      if (media.tagName === 'VIDEO') {
-        media.load();
-        if (isCenter) media.play().catch(() => {});
-      }
-      var done = () => item.classList.remove('yw-loading');
-      if (media.tagName === 'VIDEO') {
-        if (media.readyState >= 2) done(); else media.addEventListener('loadeddata', done, { once: true });
-      } else {
-        if (media.complete && media.naturalWidth > 0) done(); else media.addEventListener('load', done, { once: true });
-      }
-    }
-
-    /* Load center slide — called when carousel enters viewport */
-    _loadCenterMedia() {
-      if (this._centerLoaded) return;
-      var item  = this._root.querySelector('[data-index="' + this._activeIndex + '"]');
-      if (!item) return;
-      var media = item.querySelector('[data-src]');
-      if (!media) { this._centerLoaded = true; return; }
-      this._centerLoaded = true;
-      this._promoteMedia(item, media, true);
-
-      // After center loads, schedule adjacent based on connection speed
-      var self = this;
-      var schedule = () => {
-        var delay = self._adjacentDelay();
-        if (delay < 0) return;
-        if (self._adjacentTimer) window.clearTimeout(self._adjacentTimer);
-        self._adjacentTimer = window.setTimeout(() => self._loadAdjacentMedia(), delay);
-      };
-      media.tagName === 'VIDEO'
-        ? media.addEventListener('loadeddata', schedule, { once: true })
-        : media.addEventListener('load', schedule, { once: true });
-      window.setTimeout(schedule, 1500); // fallback if event never fires (cached)
-    }
-
-    /* Load left + right slides — never loads back */
-    _loadAdjacentMedia() {
-      [(this._activeIndex + 1) % 4, (this._activeIndex + 3) % 4].forEach(i => {
-        var item  = this._root.querySelector('[data-index="' + i + '"]');
-        if (!item) return;
-        var media = item.querySelector('[data-src]');
-        if (media) this._promoteMedia(item, media, false);
-      });
-    }
-
-    /* ms before loading adjacent; -1 = skip on very slow connections */
-    _adjacentDelay() {
-      var conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-      if (conn) {
-        if (conn.saveData) return -1;
-        if (conn.effectiveType === 'slow-2g' || conn.effectiveType === '2g') return -1;
-        if (conn.effectiveType === '3g') return 2500;
-      }
-      return 500;
-    }
-
     _navigate(dir) {
       if (this._locked) return;
       var dur = parseInt(this._getAttr('transition-ms','650'), 10) || 650;
       this._locked = true;
       this._activeIndex = dir === 'prev' ? (this._activeIndex + 3) % 4 : (this._activeIndex + 1) % 4;
       this._updateScene();
-      this._loadAdjacentMedia();
       window.setTimeout(() => { this._locked = false; }, dur);
       this._startAutoplay();
     }
@@ -515,7 +421,6 @@
       this._locked = true;
       this._activeIndex = target;
       this._updateScene();
-      this._loadAdjacentMedia();
       window.setTimeout(() => { this._locked = false; }, dur);
       this._startAutoplay();
     }
@@ -532,7 +437,6 @@
 
       this._root.addEventListener('touchstart', e => {
         this._touchStartX = e.touches[0].clientX;
-        this._loadAdjacentMedia(); // start loading on touch — user likely to swipe
       }, { passive: true });
 
       this._root.addEventListener('touchend', e => {
@@ -546,16 +450,11 @@
       if (typeof IntersectionObserver !== 'undefined') {
         this._observer = new IntersectionObserver(entries => {
           this._isVisible = entries[0].isIntersecting;
-          if (this._isVisible) {
-            this._loadCenterMedia();
-            if (!this._isHovered) this._startAutoplay();
-          } else {
-            this._stopAutoplay();
-          }
+          if (this._isVisible) { if (!this._isHovered) this._startAutoplay(); }
+          else                 { this._stopAutoplay(); }
         }, { threshold: 0.1 });
         this._observer.observe(this);
       } else {
-        this._loadCenterMedia();
         this._startAutoplay();
       }
     }
