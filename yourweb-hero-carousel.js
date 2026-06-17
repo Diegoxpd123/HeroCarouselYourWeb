@@ -10,29 +10,21 @@
   function svgData(label, main, accent) {
     var svg =
       '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 760">' +
-      '<defs><radialGradient id="g" cx="35%" cy="18%" r="75%"><stop stop-color="#fff" stop-opacity=".92"/><stop offset=".45" stop-color="' +
-      accent +
-      '"/><stop offset="1" stop-color="' +
-      main +
-      '"/></radialGradient></defs>' +
+      '<defs><radialGradient id="g" cx="35%" cy="18%" r="75%"><stop stop-color="#fff" stop-opacity=".92"/><stop offset=".45" stop-color="' + accent + '"/><stop offset="1" stop-color="' + main + '"/></radialGradient></defs>' +
       '<path d="M145 415c0-114 50-190 115-190s115 76 115 190v145c0 76-47 126-115 126s-115-50-115-126V415Z" fill="url(#g)"/>' +
-      '<path d="M185 240 145 90c-6-24 22-42 42-27l102 78M335 240 375 90c6-24-22-42-42-27l-102 78" fill="' +
-      accent +
-      '" opacity=".9"/>' +
+      '<path d="M185 240 145 90c-6-24 22-42 42-27l102 78M335 240 375 90c6-24-22-42-42-27l-102 78" fill="' + accent + '" opacity=".9"/>' +
       '<circle cx="218" cy="360" r="16" fill="#161616"/><circle cx="302" cy="360" r="16" fill="#161616"/>' +
       '<path d="M244 410c16 14 32 14 48 0" fill="none" stroke="#161616" stroke-width="14" stroke-linecap="round"/>' +
       '<path d="M160 492c62 34 135 42 220 0v72c-82 38-156 38-220 0v-72Z" fill="#fff" opacity=".34"/>' +
-      '<text x="260" y="618" text-anchor="middle" font-family="Arial Black, Impact, sans-serif" font-size="54" fill="#161616" opacity=".72">' +
-      label +
-      "</text></svg>";
+      '<text x="260" y="618" text-anchor="middle" font-family="Arial Black, Impact, sans-serif" font-size="54" fill="#161616" opacity=".72">' + label + "</text></svg>";
     return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
   }
 
   var DEFAULTS = [
-    { media: svgData("01", "#F4845F", "#F8B195"), bg: "rgb(244, 132, 95)", panel: "rgb(247, 155, 127)", label: "Luna", caption: "Chequeo preventivo" },
-    { media: svgData("02", "#6BBF7A", "#B9F6C4"), bg: "rgb(107, 191, 122)", panel: "rgb(133, 204, 146)", label: "Max", caption: "Vacunas y bienestar" },
-    { media: svgData("03", "#E882B4", "#FFD0E6"), bg: "rgb(232, 130, 180)", panel: "rgb(237, 157, 196)", label: "Mia", caption: "Grooming premium" },
-    { media: svgData("04", "#6EB5FF", "#C9E5FF"), bg: "rgb(110, 181, 255)", panel: "rgb(141, 196, 255)", label: "Nube", caption: "Emergencias 24/7" }
+    { media: svgData("01", "#F4845F", "#F8B195"), bg: "rgb(244,132,95)",   panel: "rgb(247,155,127)", label: "Luna", caption: "Chequeo preventivo" },
+    { media: svgData("02", "#6BBF7A", "#B9F6C4"), bg: "rgb(107,191,122)",  panel: "rgb(133,204,146)", label: "Max",  caption: "Vacunas y bienestar" },
+    { media: svgData("03", "#E882B4", "#FFD0E6"), bg: "rgb(232,130,180)",  panel: "rgb(237,157,196)", label: "Mia",  caption: "Grooming premium"    },
+    { media: svgData("04", "#6EB5FF", "#C9E5FF"), bg: "rgb(110,181,255)",  panel: "rgb(141,196,255)", label: "Nube", caption: "Emergencias 24/7"    }
   ];
 
   var STYLE = [
@@ -44,10 +36,6 @@
     "  --yw-display:Arial Black,Montserrat,Arial,sans-serif;",
     "  --yw-height:100%;",
     "  --yw-min-height:320px;",
-    "  --yw-ghost-size-desktop:clamp(44px,10vw,140px);",
-    "  --yw-ghost-size-tablet:clamp(40px,9vw,110px);",
-    "  --yw-ghost-size-mobile:clamp(28px,10vw,52px);",
-    "  --yw-ghost-size:var(--yw-ghost-size-desktop);",
     "  --yw-title-size:clamp(24px,4.2vw,46px);",
     "  --yw-center-height-desktop:82%;--yw-center-height-tablet:70%;--yw-center-height-mobile:90%;",
     "  --yw-center-height:var(--yw-center-height-desktop);",
@@ -65,26 +53,24 @@
     "  --yw-left-pos-mobile:20%;--yw-right-pos-mobile:80%;",
     "  --yw-stage-center:50%;--yw-stage-center-mobile:50%;",
     "  --yw-transition-ms:650ms;",
-    "  --yw-primary:#ffffff;--yw-button-bg:#ffffff;--yw-button-text:#171717;",
+    "  --yw-button-bg:#ffffff;--yw-button-text:#171717;",
     "}",
     ".hero{position:relative;width:100%;min-height:var(--yw-min-height);height:var(--yw-height);overflow:hidden;color:var(--yw-text);font-family:var(--yw-font);background:var(--yw-active-bg);transition:background-color var(--yw-transition-ms) cubic-bezier(.4,0,.2,1);}",
     ".hero::before{content:'';position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(0,0,0,.18),rgba(0,0,0,.03) 42%,rgba(255,255,255,.08));pointer-events:none;}",
     ".grain{position:absolute;inset:0;z-index:8;opacity:.22;pointer-events:none;background-image:url(\"data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E\");background-size:180px 180px;}",
-    ".ghost{position:absolute;inset:0 0 auto;top:7%;z-index:2;display:flex;justify-content:center;align-items:center;white-space:nowrap;color:rgba(255,255,255,.72);font-family:var(--yw-display);font-size:var(--yw-ghost-size);font-weight:900;letter-spacing:-.02em;line-height:1;text-transform:uppercase;pointer-events:none;user-select:none;}",
     ".carousel{position:absolute;inset:0;z-index:3;}",
     ".item{position:absolute;aspect-ratio:.6/1;will-change:transform,filter,opacity,left,bottom,height;transition:transform var(--yw-transition-ms) cubic-bezier(.4,0,.2,1),filter var(--yw-transition-ms) cubic-bezier(.4,0,.2,1),opacity var(--yw-transition-ms) cubic-bezier(.4,0,.2,1),left var(--yw-transition-ms) cubic-bezier(.4,0,.2,1),bottom var(--yw-transition-ms) cubic-bezier(.4,0,.2,1),height var(--yw-transition-ms) cubic-bezier(.4,0,.2,1);}",
-    ".figure{position:relative;width:100%;height:100%;overflow:hidden;}",
-    ".media{width:100%;height:100%;object-fit:contain;object-position:bottom center;display:block;filter:none;}",
+    ".figure{position:relative;width:100%;height:100%;overflow:hidden;background:var(--panel,transparent);}",
+    ".media{width:100%;height:100%;object-fit:contain;object-position:bottom center;display:block;}",
     ".media.remove-white-bg{mix-blend-mode:multiply;}",
     ".item[data-role=center]{left:var(--yw-stage-center);bottom:var(--yw-center-bottom);height:var(--yw-center-height);z-index:20;opacity:1;filter:blur(0);transform:translateX(-50%) scale(var(--yw-center-scale));}",
     ".item[data-role=left],.item[data-role=right]{bottom:var(--yw-side-bottom);height:var(--yw-side-height);z-index:10;opacity:.84;filter:blur(2px);transform:translateX(-50%) scale(var(--yw-side-scale));}",
     ".item[data-role=left]{left:var(--yw-left-pos);}",
     ".item[data-role=right]{left:var(--yw-right-pos);}",
     ".item[data-role=back]{left:var(--yw-stage-center);bottom:var(--yw-back-bottom);height:var(--yw-back-height);z-index:5;opacity:.58;filter:blur(3px);transform:translateX(-50%) scale(var(--yw-back-scale));}",
-    ".content{position:absolute;left:clamp(18px,5vw,62px);top:58%;transform:translateY(-34%);z-index:20;width:min(42%,500px);max-width:calc(100% - 36px);text-shadow:none;}",
+    ".content{position:absolute;left:clamp(18px,5vw,62px);top:58%;transform:translateY(-34%);z-index:20;width:min(42%,500px);max-width:calc(100% - 36px);}",
     ".brand{position:absolute;left:clamp(18px,4vw,54px);top:clamp(16px,3vw,30px);z-index:21;font-size:clamp(.58rem,1vw,.72rem);font-weight:800;letter-spacing:.22em;text-transform:uppercase;}",
-    ".eyebrow,.active{margin:0 0 10px;font-size:.78rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;}",
-    ".active{color:rgba(255,255,255,.9);}",
+    ".active{margin:0 0 10px;font-size:.78rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.9);}",
     "h1{margin:0;font-family:var(--yw-display);font-size:var(--yw-title-size);font-weight:900;letter-spacing:-.02em;line-height:1.04;text-transform:uppercase;max-width:13ch;}",
     ".body{max-width:390px;margin:14px 0 0;color:rgba(255,255,255,.92);font-size:clamp(.84rem,1.35vw,1rem);line-height:1.5;}",
     ".cta{display:inline-flex;align-items:center;gap:10px;margin-top:22px;padding:14px 22px;border-radius:999px;background:var(--yw-button-bg);color:var(--yw-button-text);font-size:.78rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;box-shadow:0 16px 40px rgba(0,0,0,.18);transition:transform 180ms ease,box-shadow 180ms ease;}",
@@ -93,30 +79,25 @@
     ".control{all:unset;width:46px;height:46px;border:1px solid rgba(255,255,255,.65);border-radius:999px;display:grid;place-items:center;cursor:pointer;background:rgba(255,255,255,.08);backdrop-filter:blur(10px);transition:transform 160ms ease,background 160ms ease;}",
     ".control:hover{transform:scale(1.06);background:rgba(255,255,255,.16);}",
     ".controls.is-hidden{display:none;}",
-
     /* Indicator dots */
     ".indicators{position:absolute;left:50%;bottom:clamp(18px,3vw,28px);transform:translateX(-50%);z-index:22;display:flex;gap:8px;align-items:center;}",
     ".dot{all:unset;width:7px;height:7px;border-radius:999px;background:rgba(255,255,255,.35);cursor:pointer;transition:background 240ms ease,width 260ms cubic-bezier(.4,0,.2,1),transform 140ms ease;box-sizing:border-box;}",
     ".dot[aria-current='true']{background:rgba(255,255,255,.95);width:22px;}",
     ".dot:hover{background:rgba(255,255,255,.68);transform:scale(1.18);}",
     ".dot:focus-visible{outline:2px solid rgba(255,255,255,.9);outline-offset:3px;}",
-
-    /* Loading shimmer */
+    /* Loading shimmer — uses slide panel color as base while media loads */
     "@keyframes yw-shimmer{from{background-position:200% 0}to{background-position:-200% 0}}",
-    ".item.yw-loading .figure::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,255,255,.04) 25%,rgba(255,255,255,.14) 50%,rgba(255,255,255,.04) 75%);background-size:200% 100%;animation:yw-shimmer 1.6s infinite linear;}",
-
+    ".item.yw-loading .figure::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,255,255,.03) 25%,rgba(255,255,255,.12) 50%,rgba(255,255,255,.03) 75%);background-size:200% 100%;animation:yw-shimmer 1.8s infinite linear;}",
     /* prefers-reduced-motion */
     "@media(prefers-reduced-motion:reduce){",
     "  .item{transition:opacity 150ms linear;}",
     "  .hero{transition:background-color 150ms linear;}",
     "  .dot{transition:background 150ms ease,width 150ms ease;}",
-    "  .item.yw-loading .figure::after{animation:none;background:rgba(255,255,255,.09);}",
+    "  .item.yw-loading .figure::after{animation:none;background:rgba(255,255,255,.08);}",
     "}",
-
     "@media(max-width:700px){",
-    "  :host{--yw-min-height:480px;--yw-ghost-size:var(--yw-ghost-size-mobile);}",
+    "  :host{--yw-min-height:480px;}",
     "  .hero::before{background:linear-gradient(180deg,rgba(0,0,0,.1),rgba(0,0,0,.02) 48%,rgba(0,0,0,.22));}",
-    "  .ghost{top:3%;}",
     "  .item[data-role=center]{left:var(--yw-stage-center-mobile);height:var(--yw-center-height-mobile);bottom:var(--yw-center-bottom-mobile);transform:translateX(-50%) scale(var(--yw-center-scale-mobile));}",
     "  .item[data-role=left],.item[data-role=right]{height:var(--yw-side-height-mobile);bottom:var(--yw-side-bottom-mobile);}",
     "  .item[data-role=left]{left:var(--yw-left-pos-mobile);}",
@@ -133,7 +114,6 @@
     "@media(max-width:420px){",
     "  :host{--yw-min-height:430px;}",
     "  .brand{left:14px;top:14px;font-size:.52rem;letter-spacing:.18em;}",
-    "  .ghost{top:2%;}",
     "  .content{left:14px;right:14px;bottom:18px;}",
     "  .body{max-width:270px;line-height:1.45;}",
     "  .controls{right:12px;top:clamp(10px,2.5vw,18px);gap:7px;}",
@@ -154,12 +134,12 @@
     "  .body{max-width:220px;font-size:.78rem;}",
     "}",
     "@media(min-width:701px) and (max-width:980px){",
-    "  :host{--yw-title-size:clamp(24px,4.8vw,42px);--yw-ghost-size:var(--yw-ghost-size-tablet);--yw-center-height:var(--yw-center-height-tablet);--yw-side-height:var(--yw-side-height-tablet);--yw-back-height:var(--yw-back-height-tablet);--yw-center-scale:var(--yw-center-scale-tablet);--yw-stage-center:50%;--yw-left-pos:30%;--yw-right-pos:70%;}",
+    "  :host{--yw-title-size:clamp(24px,4.8vw,42px);--yw-center-height:var(--yw-center-height-tablet);--yw-side-height:var(--yw-side-height-tablet);--yw-back-height:var(--yw-back-height-tablet);--yw-center-scale:var(--yw-center-scale-tablet);--yw-stage-center:50%;--yw-left-pos:30%;--yw-right-pos:70%;}",
     "  .content{width:min(46%,430px);}",
     "  .body{max-width:330px;}",
     "}",
     "@media(max-height:520px){",
-    "  :host{--yw-min-height:430px;--yw-title-size:clamp(22px,5vw,36px);--yw-ghost-size:var(--yw-ghost-size-tablet);}",
+    "  :host{--yw-min-height:430px;--yw-title-size:clamp(22px,5vw,36px);}",
     "  .content{top:60%;}",
     "  .body{display:none;}",
     "}",
@@ -168,41 +148,42 @@
   class YourWebHeroCarousel extends HTMLElement {
     static get observedAttributes() {
       return [
-        "media-1", "media-2", "media-3", "media-4",
-        "image-1", "image-2", "image-3", "image-4",
-        "video-1", "video-2", "video-3", "video-4",
-        "media-type-1", "media-type-2", "media-type-3", "media-type-4",
-        "bg-1", "bg-2", "bg-3", "bg-4",
-        "panel-1", "panel-2", "panel-3", "panel-4",
-        "label-1", "label-2", "label-3", "label-4",
-        "caption-1", "caption-2", "caption-3", "caption-4",
-        "title-1", "title-2", "title-3", "title-4",
-        "brand", "title", "cta-label", "cta-href",
-        "ghost-text", "font-family", "display-font", "text-color", "button-bg", "button-text",
-        "height", "min-height", "ghost-size", "ghost-size-desktop", "ghost-size-tablet", "ghost-size-mobile", "title-size",
-        "center-height", "center-height-desktop", "center-height-tablet", "center-height-mobile",
-        "side-height", "side-height-desktop", "side-height-tablet", "side-height-mobile",
-        "back-height", "back-height-desktop", "back-height-tablet", "back-height-mobile",
-        "center-scale", "center-scale-desktop", "center-scale-tablet", "center-scale-mobile",
-        "side-scale", "back-scale", "center-bottom", "center-bottom-mobile",
-        "side-bottom", "side-bottom-mobile", "back-bottom", "back-bottom-mobile",
-        "left-pos", "right-pos", "left-pos-mobile", "right-pos-mobile",
-        "stage-center", "stage-center-mobile",
-        "autoplay", "interval", "transition-ms", "controls", "grain", "remove-white-bg"
+        "media-1","media-2","media-3","media-4",
+        "image-1","image-2","image-3","image-4",
+        "video-1","video-2","video-3","video-4",
+        "media-type-1","media-type-2","media-type-3","media-type-4",
+        "bg-1","bg-2","bg-3","bg-4",
+        "panel-1","panel-2","panel-3","panel-4",
+        "label-1","label-2","label-3","label-4",
+        "caption-1","caption-2","caption-3","caption-4",
+        "title-1","title-2","title-3","title-4",
+        "brand","title","cta-label","cta-href",
+        "font-family","display-font","text-color","button-bg","button-text",
+        "height","min-height","title-size",
+        "center-height","center-height-desktop","center-height-tablet","center-height-mobile",
+        "side-height","side-height-desktop","side-height-tablet","side-height-mobile",
+        "back-height","back-height-desktop","back-height-tablet","back-height-mobile",
+        "center-scale","center-scale-desktop","center-scale-tablet","center-scale-mobile",
+        "side-scale","back-scale","center-bottom","center-bottom-mobile",
+        "side-bottom","side-bottom-mobile","back-bottom","back-bottom-mobile",
+        "left-pos","right-pos","left-pos-mobile","right-pos-mobile",
+        "stage-center","stage-center-mobile",
+        "autoplay","interval","transition-ms","controls","grain","remove-white-bg"
       ];
     }
 
     constructor() {
       super();
-      this._activeIndex = 0;
-      this._locked = false;
-      this._timer = 0;
+      this._activeIndex   = 0;
+      this._locked        = false;
+      this._timer         = 0;
       this._adjacentTimer = 0;
-      this._observer = null;
-      this._isVisible = true;
-      this._isHovered = false;
-      this._touchStartX = 0;
+      this._observer      = null;
+      this._isVisible     = true;
+      this._isHovered     = false;
+      this._touchStartX   = 0;
       this._interactionsSetup = false;
+      this._centerLoaded  = false;
       this.attachShadow({ mode: "open" });
       var style = document.createElement("style");
       style.textContent = STYLE;
@@ -220,50 +201,52 @@
 
     disconnectedCallback() {
       this._stopAutoplay();
+      if (this._adjacentTimer) window.clearTimeout(this._adjacentTimer);
       if (this._observer) { this._observer.disconnect(); this._observer = null; }
     }
 
     attributeChangedCallback() {
       if (!this.shadowRoot || !this._root) return;
       this._applyVars();
+      this._centerLoaded = false; // force reload since attributes may have changed media
       this._render();
       this._startAutoplay();
+      if (this._isVisible) this._loadCenterMedia();
     }
 
-    _isOff(value) {
-      if (value == null || value === "") return false;
-      var v = String(value).toLowerCase().trim();
+    _isOff(v) {
+      if (v == null || v === "") return false;
+      v = String(v).toLowerCase().trim();
       return v === "off" || v === "false" || v === "0" || v === "no";
     }
 
-    _isOn(value) {
-      if (value == null || value === "") return false;
-      var v = String(value).toLowerCase().trim();
+    _isOn(v) {
+      if (v == null || v === "") return false;
+      v = String(v).toLowerCase().trim();
       return v === "on" || v === "true" || v === "1" || v === "yes";
     }
 
     _getAttr(name, fallback) {
-      var value = this.getAttribute(name);
-      return value == null || value === "" ? fallback : value;
+      var v = this.getAttribute(name);
+      return v == null || v === "" ? fallback : v;
     }
 
     _getSlides() {
       var slides = [];
-      for (var i = 1; i <= 4; i += 1) {
-        var base = DEFAULTS[i - 1];
+      for (var i = 1; i <= 4; i++) {
+        var base  = DEFAULTS[i - 1];
         var video = this.getAttribute("video-" + i);
         var image = this.getAttribute("image-" + i);
         var media = this.getAttribute("media-" + i) || video || image || base.media;
-        var explicitType = this.getAttribute("media-type-" + i);
-        var type = explicitType || (video ? "video" : this._guessType(media));
+        var type  = this.getAttribute("media-type-" + i) || (video ? "video" : this._guessType(media));
         slides.push({
-          media: media,
-          type: type,
-          bg: this._getAttr("bg-" + i, base.bg),
-          panel: this._getAttr("panel-" + i, base.panel),
-          label: this._getAttr("label-" + i, base.label),
+          media:   media,
+          type:    type,
+          bg:      this._getAttr("bg-"      + i, base.bg),
+          panel:   this._getAttr("panel-"   + i, base.panel),
+          label:   this._getAttr("label-"   + i, base.label),
           caption: this._getAttr("caption-" + i, base.caption),
-          title: this._getAttr("title-" + i, this._getAttr("title", "Hero animado configurable"))
+          title:   this._getAttr("title-"   + i, this._getAttr("title", "Hero animado configurable"))
         });
       }
       return slides;
@@ -282,55 +265,51 @@
 
     _applyVars() {
       var map = {
-        "font-family": "--yw-font", "display-font": "--yw-display", "text-color": "--yw-text",
-        "button-bg": "--yw-button-bg", "button-text": "--yw-button-text",
-        "height": "--yw-height", "min-height": "--yw-min-height",
-        "ghost-size": "--yw-ghost-size", "ghost-size-desktop": "--yw-ghost-size-desktop",
-        "ghost-size-tablet": "--yw-ghost-size-tablet", "ghost-size-mobile": "--yw-ghost-size-mobile",
-        "title-size": "--yw-title-size",
-        "center-height": "--yw-center-height", "center-height-desktop": "--yw-center-height-desktop",
-        "center-height-tablet": "--yw-center-height-tablet", "center-height-mobile": "--yw-center-height-mobile",
-        "side-height": "--yw-side-height", "side-height-desktop": "--yw-side-height-desktop",
-        "side-height-tablet": "--yw-side-height-tablet", "side-height-mobile": "--yw-side-height-mobile",
-        "back-height": "--yw-back-height", "back-height-desktop": "--yw-back-height-desktop",
-        "back-height-tablet": "--yw-back-height-tablet", "back-height-mobile": "--yw-back-height-mobile",
-        "center-scale": "--yw-center-scale", "center-scale-desktop": "--yw-center-scale-desktop",
-        "center-scale-tablet": "--yw-center-scale-tablet", "center-scale-mobile": "--yw-center-scale-mobile",
-        "side-scale": "--yw-side-scale", "back-scale": "--yw-back-scale",
-        "center-bottom": "--yw-center-bottom", "center-bottom-mobile": "--yw-center-bottom-mobile",
-        "side-bottom": "--yw-side-bottom", "side-bottom-mobile": "--yw-side-bottom-mobile",
-        "back-bottom": "--yw-back-bottom", "back-bottom-mobile": "--yw-back-bottom-mobile",
-        "left-pos": "--yw-left-pos", "right-pos": "--yw-right-pos",
-        "left-pos-mobile": "--yw-left-pos-mobile", "right-pos-mobile": "--yw-right-pos-mobile",
-        "stage-center": "--yw-stage-center", "stage-center-mobile": "--yw-stage-center-mobile"
+        "font-family":"--yw-font","display-font":"--yw-display","text-color":"--yw-text",
+        "button-bg":"--yw-button-bg","button-text":"--yw-button-text",
+        "height":"--yw-height","min-height":"--yw-min-height","title-size":"--yw-title-size",
+        "center-height":"--yw-center-height","center-height-desktop":"--yw-center-height-desktop",
+        "center-height-tablet":"--yw-center-height-tablet","center-height-mobile":"--yw-center-height-mobile",
+        "side-height":"--yw-side-height","side-height-desktop":"--yw-side-height-desktop",
+        "side-height-tablet":"--yw-side-height-tablet","side-height-mobile":"--yw-side-height-mobile",
+        "back-height":"--yw-back-height","back-height-desktop":"--yw-back-height-desktop",
+        "back-height-tablet":"--yw-back-height-tablet","back-height-mobile":"--yw-back-height-mobile",
+        "center-scale":"--yw-center-scale","center-scale-desktop":"--yw-center-scale-desktop",
+        "center-scale-tablet":"--yw-center-scale-tablet","center-scale-mobile":"--yw-center-scale-mobile",
+        "side-scale":"--yw-side-scale","back-scale":"--yw-back-scale",
+        "center-bottom":"--yw-center-bottom","center-bottom-mobile":"--yw-center-bottom-mobile",
+        "side-bottom":"--yw-side-bottom","side-bottom-mobile":"--yw-side-bottom-mobile",
+        "back-bottom":"--yw-back-bottom","back-bottom-mobile":"--yw-back-bottom-mobile",
+        "left-pos":"--yw-left-pos","right-pos":"--yw-right-pos",
+        "left-pos-mobile":"--yw-left-pos-mobile","right-pos-mobile":"--yw-right-pos-mobile",
+        "stage-center":"--yw-stage-center","stage-center-mobile":"--yw-stage-center-mobile"
       };
       for (var attr in map) {
         if (Object.prototype.hasOwnProperty.call(map, attr)) {
-          var value = this.getAttribute(attr);
-          if (value != null && value !== "") this.style.setProperty(map[attr], value);
+          var val = this.getAttribute(attr);
+          if (val != null && val !== "") this.style.setProperty(map[attr], val);
         }
       }
-      var transitionMs = this._getAttr("transition-ms", "650");
-      this.style.setProperty("--yw-transition-ms", String(transitionMs).replace("ms", "") + "ms");
+      var ms = this._getAttr("transition-ms", "650");
+      this.style.setProperty("--yw-transition-ms", String(ms).replace("ms","") + "ms");
     }
 
     _render() {
-      var slides = this._getSlides();
-      var active = slides[this._activeIndex] || slides[0];
+      var slides  = this._getSlides();
+      var active  = slides[this._activeIndex] || slides[0];
       this.style.setProperty("--yw-active-bg", active.bg);
 
       var controlsVisible = this._isOn(this.getAttribute("controls"));
-      var grain = this._isOff(this.getAttribute("grain")) ? "" : '<div class="grain" aria-hidden="true"></div>';
-      var ctaLabel = this._getAttr("cta-label", "");
-      var ctaHtml = ctaLabel
-        ? '<a class="cta" href="' + this._normalizeHref(this._getAttr("cta-href", "#")) + '">' + this._escape(ctaLabel) + " →</a>"
+      var grain   = this._isOff(this.getAttribute("grain")) ? "" : '<div class="grain" aria-hidden="true"></div>';
+      var ctaLabel = this._getAttr("cta-label","");
+      var ctaHtml  = ctaLabel
+        ? '<a class="cta" href="' + this._normalizeHref(this._getAttr("cta-href","#")) + '">' + this._escape(ctaLabel) + " →</a>"
         : "";
 
       var html = grain +
-        '<div class="brand">' + this._escape(this._getAttr("brand", "YOURWEB HERO")) + "</div>" +
-        '<div class="ghost" aria-hidden="true">' + this._escape(this._getAttr("ghost-text", "PETCARE")) + "</div>" +
+        '<div class="brand">' + this._escape(this._getAttr("brand","YOURWEB HERO")) + "</div>" +
         '<div class="carousel" aria-label="Animated hero carousel">' +
-        slides.map(function (slide, index) { return this._renderItem(slide, index); }, this).join("") +
+        slides.map(function(s,i){ return this._renderItem(s,i); }, this).join("") +
         "</div>" +
         '<div class="content">' +
         '<p class="active" data-active-label>' + this._escape(active.label + " / " + active.caption) + "</p>" +
@@ -338,8 +317,8 @@
         ctaHtml +
         "</div>" +
         '<div class="indicators" role="tablist" aria-label="Slide navigation">' +
-        slides.map(function (_, i) {
-          return '<button class="dot" role="tab" type="button" data-goto="' + i + '" aria-label="Slide ' + (i + 1) + '" aria-current="' + String(i === this._activeIndex) + '"></button>';
+        slides.map(function(_,i){
+          return '<button class="dot" role="tab" type="button" data-goto="' + i + '" aria-label="Slide ' + (i+1) + '" aria-current="' + String(i === this._activeIndex) + '"></button>';
         }, this).join("") +
         "</div>" +
         (controlsVisible
@@ -348,68 +327,35 @@
 
       this._root.innerHTML = html;
 
-      // Control buttons
-      this._root.querySelectorAll("[data-dir]").forEach(function (btn) {
-        btn.addEventListener("click", function () { this._navigate(btn.getAttribute("data-dir") || "next"); }.bind(this));
+      this._root.querySelectorAll("[data-dir]").forEach(function(btn){
+        btn.addEventListener("click", function(){ this._navigate(btn.getAttribute("data-dir")||"next"); }.bind(this));
+      }, this);
+      this._root.querySelectorAll("[data-goto]").forEach(function(dot){
+        dot.addEventListener("click", function(){ this._goTo(parseInt(dot.getAttribute("data-goto"),10)); }.bind(this));
       }, this);
 
-      // Indicator dots
-      this._root.querySelectorAll("[data-goto]").forEach(function (dot) {
-        dot.addEventListener("click", function () { this._goTo(parseInt(dot.getAttribute("data-goto"), 10)); }.bind(this));
-      }, this);
-
-      // Shimmer until media loads; items with data-src keep shimmer until promoted
-      this._root.querySelectorAll(".item").forEach(function (item) {
-        item.classList.add("yw-loading");
-        var media = item.querySelector(".media");
-        if (!media || media.getAttribute("data-src")) return; // deferred — stays loading
-        var done = function () { item.classList.remove("yw-loading"); };
-        if (media.tagName === "VIDEO") {
-          if (media.readyState >= 2) done();
-          else media.addEventListener("loadeddata", done, { once: true });
-        } else {
-          if (media.complete && media.naturalWidth > 0) done();
-          else media.addEventListener("load", done, { once: true });
-        }
-      });
-
-      // Load adjacent slides after center is in — prevents 4 GIFs loading at once
-      if (this._adjacentTimer) window.clearTimeout(this._adjacentTimer);
-      this._adjacentTimer = window.setTimeout(function () { this._loadAdjacentMedia(); }.bind(this), 700);
+      // All items start with shimmer — media loads on demand
+      this._root.querySelectorAll(".item").forEach(function(item){ item.classList.add("yw-loading"); });
 
       this._updateScene();
     }
 
+    // All slides use data-src — nothing loads until explicitly promoted
     _renderItem(slide, index) {
       var role = this._roleFor(index);
-      var cls = "media" + this._removeWhiteBgClass();
+      var cls  = "media" + (this._isOn(this.getAttribute("remove-white-bg")) ? " remove-white-bg" : "");
       var media;
-      if (role === "center") {
-        // Center loads immediately — highest priority
-        if (slide.type === "video") {
-          media = '<video class="' + cls + '" src="' + this._escapeAttr(slide.media) + '" autoplay muted loop playsinline preload="auto"></video>';
-        } else {
-          media = '<img class="' + cls + '" src="' + this._escapeAttr(slide.media) + '" alt="' + this._escapeAttr(slide.label) + '" loading="eager" fetchpriority="high" decoding="async" draggable="false" />';
-        }
+      if (slide.type === "video") {
+        media = '<video class="' + cls + '" data-src="' + this._escapeAttr(slide.media) + '" muted loop playsinline preload="none"></video>';
       } else {
-        // Non-center: defer via data-src — browser won't request until we set src in JS
-        if (slide.type === "video") {
-          media = '<video class="' + cls + '" data-src="' + this._escapeAttr(slide.media) + '" muted loop playsinline preload="none"></video>';
-        } else {
-          media = '<img class="' + cls + '" data-src="' + this._escapeAttr(slide.media) + '" alt="' + this._escapeAttr(slide.label) + '" decoding="async" draggable="false" />';
-        }
+        media = '<img class="' + cls + '" data-src="' + this._escapeAttr(slide.media) + '" alt="' + this._escapeAttr(slide.label) + '" decoding="async" draggable="false" />';
       }
-      return '<article class="item" data-index="' + index + '" data-role="' + role + '" style="--panel:' + this._escapeAttr(slide.panel) + '" aria-hidden="' + String(role !== "center") + '"><div class="figure">' + media + "</div></article>";
-    }
-
-    _removeWhiteBgClass() {
-      return this._isOn(this.getAttribute("remove-white-bg")) ? " remove-white-bg" : "";
+      return '<article class="item" data-index="' + index + '" data-role="' + role + '" style="--panel:' + this._escapeAttr(slide.panel) + '" aria-hidden="' + String(role!=="center") + '"><div class="figure">' + media + "</div></article>";
     }
 
     _updateScene() {
       var slides = this._getSlides();
       var active = slides[this._activeIndex] || slides[0];
-
       this.style.setProperty("--yw-active-bg", active.bg);
 
       var activeLabel = this._root.querySelector("[data-active-label]");
@@ -417,72 +363,137 @@
       if (activeLabel) activeLabel.textContent = active.label + " / " + active.caption;
       if (activeTitle) activeTitle.textContent = active.title;
 
-      // Text stagger via Web Animations API (respects prefers-reduced-motion)
-      var prefersReduced = window.matchMedia("(prefers-reduced-motion:reduce)").matches;
-      if (!prefersReduced && typeof Element.prototype.animate === "function") {
-        var animOpts = { easing: "cubic-bezier(.4,0,.2,1)", fill: "both" };
-        var fadeUp = [{ opacity: 0, transform: "translateY(9px)" }, { opacity: 1, transform: "translateY(0)" }];
-        if (activeLabel) activeLabel.animate(fadeUp, Object.assign({}, animOpts, { duration: 300, delay: 60 }));
-        if (activeTitle) activeTitle.animate(fadeUp, Object.assign({}, animOpts, { duration: 340, delay: 120 }));
+      // Text stagger via WAAPI (respects prefers-reduced-motion)
+      if (!window.matchMedia("(prefers-reduced-motion:reduce)").matches && typeof Element.prototype.animate === "function") {
+        var opts  = { easing:"cubic-bezier(.4,0,.2,1)", fill:"both" };
+        var fade  = [{ opacity:0, transform:"translateY(9px)" },{ opacity:1, transform:"translateY(0)" }];
+        if (activeLabel) activeLabel.animate(fade, Object.assign({},opts,{duration:300,delay:60}));
+        if (activeTitle) activeTitle.animate(fade, Object.assign({},opts,{duration:340,delay:120}));
         var cta = this._root.querySelector(".cta");
-        if (cta) cta.animate(fadeUp, Object.assign({}, animOpts, { duration: 360, delay: 190 }));
+        if (cta) cta.animate(fade, Object.assign({},opts,{duration:360,delay:190}));
       }
 
-      // Update item roles, promote deferred media, manage video play/pause
-      this._root.querySelectorAll("[data-index]").forEach(function (item) {
-        var index = parseInt(item.getAttribute("data-index"), 10);
-        var role = this._roleFor(index);
+      // Update roles + manage video play/pause + promote deferred center src
+      this._root.querySelectorAll("[data-index]").forEach(function(item){
+        var idx  = parseInt(item.getAttribute("data-index"),10);
+        var role = this._roleFor(idx);
         item.setAttribute("data-role", role);
         item.setAttribute("aria-hidden", String(role !== "center"));
 
-        var media = item.querySelector("[data-src]");
-        if (media && role === "center") {
-          // Promote deferred src immediately when slide becomes center
-          var src = media.getAttribute("data-src");
-          media.src = src;
-          media.removeAttribute("data-src");
-          if (media.tagName === "VIDEO") { media.load(); media.play().catch(function () {}); }
-          var doneEl = item;
-          var onLoad = function () { doneEl.classList.remove("yw-loading"); };
-          if (media.tagName === "VIDEO") media.addEventListener("loadeddata", onLoad, { once: true });
-          else media.addEventListener("load", onLoad, { once: true });
-        } else if (!media) {
-          var video = item.querySelector("video");
-          if (video) {
+        var media = item.querySelector(".media");
+        if (!media) return;
+
+        // Promote data-src → src when this slide is newly center
+        if (role === "center" && media.getAttribute("data-src")) {
+          this._promoteMedia(item, media, true);
+        } else if (!media.getAttribute("data-src")) {
+          // Already loaded — just manage play/pause for videos
+          if (media.tagName === "VIDEO") {
             if (role === "center") {
-              if (video.paused) video.play().catch(function () {});
+              if (media.paused) media.play().catch(function(){});
             } else {
-              if (!video.paused) video.pause();
+              if (!media.paused) media.pause();
             }
           }
         }
       }, this);
 
-      // Update dot states
-      this._root.querySelectorAll(".dot").forEach(function (dot) {
-        var i = parseInt(dot.getAttribute("data-goto"), 10);
-        dot.setAttribute("aria-current", String(i === this._activeIndex));
+      // Sync dots
+      this._root.querySelectorAll(".dot").forEach(function(dot){
+        dot.setAttribute("aria-current", String(parseInt(dot.getAttribute("data-goto"),10) === this._activeIndex));
       }, this);
+    }
+
+    // Promote a deferred media element: set src, handle shimmer, manage video
+    _promoteMedia(item, media, isCenter) {
+      var src = media.getAttribute("data-src");
+      if (!src) return;
+      media.removeAttribute("data-src");
+      media.src = src;
+      if (isCenter && media.tagName === "IMG") media.setAttribute("fetchpriority","high");
+      if (media.tagName === "VIDEO") {
+        media.load();
+        if (isCenter) media.play().catch(function(){});
+      }
+      var doneEl = item;
+      var onLoad = function(){ doneEl.classList.remove("yw-loading"); };
+      if (media.tagName === "VIDEO") {
+        if (media.readyState >= 2) onLoad();
+        else media.addEventListener("loadeddata", onLoad, { once:true });
+      } else {
+        if (media.complete && media.naturalWidth > 0) onLoad();
+        else media.addEventListener("load", onLoad, { once:true });
+      }
+    }
+
+    // Load center slide — called when carousel enters viewport
+    _loadCenterMedia() {
+      if (this._centerLoaded) return;
+      var item  = this._root.querySelector('[data-index="' + this._activeIndex + '"]');
+      if (!item) return;
+      var media = item.querySelector("[data-src]");
+      if (!media) { this._centerLoaded = true; return; }
+      this._centerLoaded = true;
+      var self = this;
+      this._promoteMedia(item, media, true);
+      // After center loads (or after timeout), schedule adjacent
+      var scheduleAdjacent = function(){
+        var delay = self._adjacentDelay();
+        if (delay < 0) return; // slow connection — skip preloading adjacent
+        if (self._adjacentTimer) window.clearTimeout(self._adjacentTimer);
+        self._adjacentTimer = window.setTimeout(function(){ self._loadAdjacentMedia(); }, delay);
+      };
+      if (media.tagName === "VIDEO") {
+        media.addEventListener("loadeddata", scheduleAdjacent, { once:true });
+      } else {
+        media.addEventListener("load", scheduleAdjacent, { once:true });
+      }
+      // Fallback: schedule adjacent even if load event never fires (e.g. cached images)
+      window.setTimeout(scheduleAdjacent, 1200);
+    }
+
+    // Load left + right adjacent slides (not back)
+    _loadAdjacentMedia() {
+      var adjacent = [(this._activeIndex + 1) % 4, (this._activeIndex + 3) % 4];
+      adjacent.forEach(function(i){
+        var item  = this._root.querySelector('[data-index="' + i + '"]');
+        if (!item) return;
+        var media = item.querySelector("[data-src]");
+        if (!media) return;
+        this._promoteMedia(item, media, false);
+      }, this);
+    }
+
+    // Returns ms delay before loading adjacent slides; -1 = skip on slow connection
+    _adjacentDelay() {
+      var conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+      if (conn) {
+        if (conn.saveData) return -1;
+        if (conn.effectiveType === "slow-2g" || conn.effectiveType === "2g") return -1;
+        if (conn.effectiveType === "3g") return 2500;
+      }
+      return 500;
     }
 
     _navigate(direction) {
       if (this._locked) return;
-      var duration = parseInt(this._getAttr("transition-ms", "650"), 10) || 650;
+      var duration = parseInt(this._getAttr("transition-ms","650"),10) || 650;
       this._locked = true;
       this._activeIndex = direction === "prev" ? (this._activeIndex + 3) % 4 : (this._activeIndex + 1) % 4;
       this._updateScene();
-      this._loadAdjacentMedia(); // ensure next slides are loading after each nav
-      window.setTimeout(function () { this._locked = false; }.bind(this), duration);
+      this._loadAdjacentMedia();
+      window.setTimeout(function(){ this._locked = false; }.bind(this), duration);
       this._startAutoplay();
     }
 
     _goTo(target) {
       if (this._locked || target === this._activeIndex) return;
-      var duration = parseInt(this._getAttr("transition-ms", "650"), 10) || 650;
+      var duration = parseInt(this._getAttr("transition-ms","650"),10) || 650;
       this._locked = true;
       this._activeIndex = target;
       this._updateScene();
-      window.setTimeout(function () { this._locked = false; }.bind(this), duration);
+      this._loadAdjacentMedia();
+      window.setTimeout(function(){ this._locked = false; }.bind(this), duration);
       this._startAutoplay();
     }
 
@@ -490,41 +501,47 @@
       if (this._interactionsSetup) return;
       this._interactionsSetup = true;
 
-      // Keyboard navigation
-      this.setAttribute("tabindex", "0");
-      this.addEventListener("keydown", function (e) {
-        if (e.key === "ArrowLeft") { e.preventDefault(); this._navigate("prev"); }
+      this.setAttribute("tabindex","0");
+      this.addEventListener("keydown", function(e){
+        if (e.key === "ArrowLeft")  { e.preventDefault(); this._navigate("prev"); }
         if (e.key === "ArrowRight") { e.preventDefault(); this._navigate("next"); }
       }.bind(this));
 
-      // Touch/swipe
-      this._root.addEventListener("touchstart", function (e) {
+      this._root.addEventListener("touchstart", function(e){
         this._touchStartX = e.touches[0].clientX;
-      }.bind(this), { passive: true });
-      this._root.addEventListener("touchend", function (e) {
+        // Start loading adjacent as soon as user touches — they're likely to swipe
+        this._loadAdjacentMedia();
+      }.bind(this), { passive:true });
+
+      this._root.addEventListener("touchend", function(e){
         var delta = e.changedTouches[0].clientX - this._touchStartX;
         if (Math.abs(delta) > 44) this._navigate(delta < 0 ? "next" : "prev");
-      }.bind(this), { passive: true });
+      }.bind(this), { passive:true });
 
-      // Pause autoplay on hover
-      this._root.addEventListener("mouseenter", function () {
+      this._root.addEventListener("mouseenter", function(){
         this._isHovered = true;
         this._stopAutoplay();
       }.bind(this));
-      this._root.addEventListener("mouseleave", function () {
+      this._root.addEventListener("mouseleave", function(){
         this._isHovered = false;
         this._startAutoplay();
       }.bind(this));
 
-      // Only autoplay when carousel is visible in viewport
+      var self = this;
       if (typeof IntersectionObserver !== "undefined") {
-        this._observer = new IntersectionObserver(function (entries) {
-          this._isVisible = entries[0].isIntersecting;
-          if (this._isVisible && !this._isHovered) this._startAutoplay();
-          else this._stopAutoplay();
-        }.bind(this), { threshold: 0.1 });
+        this._observer = new IntersectionObserver(function(entries){
+          self._isVisible = entries[0].isIntersecting;
+          if (self._isVisible) {
+            self._loadCenterMedia(); // start loading only when in view
+            if (!self._isHovered) self._startAutoplay();
+          } else {
+            self._stopAutoplay();
+          }
+        }, { threshold: 0.1 });
         this._observer.observe(this);
       } else {
+        // No IO support — load immediately
+        this._loadCenterMedia();
         this._startAutoplay();
       }
     }
@@ -532,10 +549,9 @@
     _startAutoplay() {
       this._stopAutoplay();
       if (this._isOff(this.getAttribute("autoplay"))) return;
-      if (!this._isVisible) return;
-      if (this._isHovered) return;
-      var interval = parseInt(this._getAttr("interval", "1000"), 10) || 1000;
-      this._timer = window.setInterval(function () { this._navigate("next"); }.bind(this), Math.max(interval, 400));
+      if (!this._isVisible || this._isHovered) return;
+      var interval = parseInt(this._getAttr("interval","1000"),10) || 1000;
+      this._timer = window.setInterval(function(){ this._navigate("next"); }.bind(this), Math.max(interval,400));
     }
 
     _stopAutoplay() {
@@ -543,45 +559,20 @@
       this._timer = 0;
     }
 
-    _loadAdjacentMedia() {
-      var adjacent = [(this._activeIndex + 1) % 4, (this._activeIndex + 3) % 4];
-      adjacent.forEach(function (i) {
-        var item = this._root.querySelector('[data-index="' + i + '"]');
-        if (!item) return;
-        var media = item.querySelector("[data-src]");
-        if (!media) return;
-        var src = media.getAttribute("data-src");
-        media.src = src;
-        media.removeAttribute("data-src");
-        if (media.tagName === "VIDEO") media.load();
-        var doneEl = item;
-        var onLoad = function () { doneEl.classList.remove("yw-loading"); };
-        if (media.tagName === "VIDEO") {
-          if (media.readyState >= 2) onLoad();
-          else media.addEventListener("loadeddata", onLoad, { once: true });
-        } else {
-          if (media.complete && media.naturalWidth > 0) onLoad();
-          else media.addEventListener("load", onLoad, { once: true });
-        }
-      }, this);
-    }
-
     _normalizeHref(href) {
       if (!href || href === "#") return "#";
       if (/^(https?:|mailto:|tel:|\/|#)/i.test(href)) return this._escapeAttr(href);
-      if (String(href).indexOf(".") !== -1) return "https://" + this._escapeAttr(String(href).replace(/^https?:\/\//i, ""));
+      if (String(href).indexOf(".") !== -1) return "https://" + this._escapeAttr(String(href).replace(/^https?:\/\//i,""));
       return this._escapeAttr(href);
     }
 
-    _escape(value) {
-      return String(value).replace(/[&<>"']/g, function (char) {
-        return ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char];
+    _escape(v) {
+      return String(v).replace(/[&<>"']/g, function(c){
+        return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
       });
     }
 
-    _escapeAttr(value) {
-      return this._escape(value);
-    }
+    _escapeAttr(v) { return this._escape(v); }
   }
 
   if (!customElements.get("yourweb-hero-carousel")) {
