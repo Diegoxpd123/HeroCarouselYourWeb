@@ -10,33 +10,44 @@ Todos los parametros son opcionales. Si no pasas nada, el componente carga una a
 
 ---
 
-## Media por slide
+## Slides ilimitados
 
-Hay 4 slides. Puedes usar imagen, video o media generico.
+Puedes agregar **tantos slides como quieras** (1, 4, 8, 20…). El escenario visual sigue mostrando hasta 4 roles a la vez (center / left / right / back); el resto queda oculto y entra al rotar.
 
-- `image-1`, `image-2`, `image-3`, `image-4`
-  - URL de imagen.
+### Opcion A — atributos numerados (Wix Set Attributes)
 
-- `video-1`, `video-2`, `video-3`, `video-4`
-  - URL de video `.mp4`, `.webm` u `.ogg`.
-  - Se reproduce en mute, loop y autoplay.
+Usa el numero que necesites: `1`, `2`, `3`, `4`, `5`, …
 
-- `media-1`, `media-2`, `media-3`, `media-4`
-  - URL generica. El componente intenta detectar si es video por extension.
+- `image-N` / `video-N` / `media-N`
+- `media-type-N` (`image` | `video`)
+- `bg-N`, `panel-N`
+- `label-N`, `caption-N`, `title-N`
 
-- `media-type-1`, `media-type-2`, `media-type-3`, `media-type-4`
-  - Fuerza el tipo: `image` o `video`.
-
-Ejemplo:
+Ejemplo con 6 slides:
 
 ```html
 <yourweb-hero-carousel
-  image-1="https://site.com/mascota-1.png"
-  video-2="https://site.com/video.mp4"
-  media-3="https://site.com/imagen.jpg"
-  media-type-3="image">
+  image-1="https://site.com/a.png"
+  image-2="https://site.com/b.png"
+  image-3="https://site.com/c.png"
+  image-4="https://site.com/d.png"
+  image-5="https://site.com/e.png"
+  image-6="https://site.com/f.png"
+  bg-5="#9B59B6"
+  label-5="Kira"
+  caption-5="Nutricion">
 </yourweb-hero-carousel>
 ```
+
+### Opcion B — JSON en `slides`
+
+```html
+<yourweb-hero-carousel
+  slides='[{"media":"https://a.png","bg":"#F4845F","label":"Luna","caption":"Chequeo","title":"Cuidado moderno"},{"media":"https://b.mp4","type":"video","bg":"#6BBF7A","label":"Max"}]'>
+</yourweb-hero-carousel>
+```
+
+Si no pasas nada, carga 4 slides demo por defecto.
 
 ---
 
@@ -44,36 +55,16 @@ Ejemplo:
 
 Acepta HEX, RGB, HSL o cualquier color CSS valido.
 
-- `bg-1`, `bg-2`, `bg-3`, `bg-4`
-  - Color de fondo activo de cada slide.
-
-- `panel-1`, `panel-2`, `panel-3`, `panel-4`
-  - Reservado para personalizacion visual por slide.
-
-Ejemplo:
-
-```html
-<yourweb-hero-carousel
-  bg-1="rgb(244, 132, 95)"
-  bg-2="#6BBF7A"
-  bg-3="hsl(330, 70%, 70%)"
-  bg-4="#6EB5FF">
-</yourweb-hero-carousel>
-```
+- `bg-N` — color de fondo activo del slide N
+- `panel-N` — color de panel del slide N
 
 ---
 
 ## Texto por slide
 
-- `label-1`, `label-2`, `label-3`, `label-4`
-  - Nombre visible del slide activo.
-
-- `caption-1`, `caption-2`, `caption-3`, `caption-4`
-  - Descripcion corta del slide activo.
-
-- `title-1`, `title-2`, `title-3`, `title-4`
-  - Titulo grande que cambia con cada slide.
-  - Si no defines estos, usa el valor general de `title`.
+- `label-N` — nombre visible del slide activo
+- `caption-N` — descripcion corta
+- `title-N` — titulo grande (si no, usa `title` global)
 
 Ejemplo:
 

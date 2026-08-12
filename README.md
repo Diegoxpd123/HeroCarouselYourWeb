@@ -12,7 +12,7 @@ Archivo principal:
 
 - `yourweb-hero-carousel.js`
 
-Funciona con imagenes, videos, colores y tamanos por defecto. Solo necesitas pasar atributos si quieres cambiar algo desde Wix.
+Funciona con imagenes, videos, colores y tamanos por defecto. **Slides ilimitados**: `image-1`…`image-N` o un JSON en `slides`. Solo necesitas pasar atributos si quieres cambiar algo desde Wix.
 
 ---
 
@@ -38,14 +38,17 @@ Funciona con imagenes, videos, colores y tamanos por defecto. Solo necesitas pas
   image-2="https://tusitio.com/gato.png"
   image-3="https://tusitio.com/conejo.png"
   image-4="https://tusitio.com/mascota.png"
+  image-5="https://tusitio.com/extra.png"
   bg-1="rgb(244, 132, 95)"
   bg-2="rgb(107, 191, 122)"
   bg-3="rgb(232, 130, 180)"
   bg-4="rgb(110, 181, 255)"
+  bg-5="#9B59B6"
   interval="1000"
   controls="off">
 </yourweb-hero-carousel>
 ```
+
 
 ## Video o imagen
 

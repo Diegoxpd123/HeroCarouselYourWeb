@@ -2,6 +2,10 @@
  * YOURWEB HERO CAROUSEL - Wix Custom Element
  *
  * Tag: <yourweb-hero-carousel></yourweb-hero-carousel>
+ *
+ * Slides ilimitados:
+ * - Atributos numerados sin tope: media-1, media-2, … media-N (también image-N / video-N)
+ * - O JSON: slides='[{"media":"...","bg":"...","label":"...","caption":"...","title":"..."}]'
  */
 (function () {
   function svgData(label, main, accent) {
@@ -83,6 +87,7 @@
     '.item[data-role=left]{left:var(--yw-left-pos);}',
     '.item[data-role=right]{left:var(--yw-right-pos);}',
     '.item[data-role=back]{left:var(--yw-stage-center);bottom:var(--yw-back-bottom);height:var(--yw-back-height);z-index:5;opacity:.58;filter:blur(3px);transform:translateX(-50%) scale(var(--yw-back-scale));}',
+    '.item[data-role=hidden]{left:var(--yw-stage-center);bottom:var(--yw-back-bottom);height:var(--yw-back-height);z-index:1;opacity:0;visibility:hidden;pointer-events:none;filter:blur(4px);transform:translateX(-50%) scale(.8);}',
 
     /* Content + UI */
     '.content{position:absolute;left:clamp(18px,5vw,62px);top:58%;transform:translateY(-34%);z-index:20;width:min(42%,500px);max-width:calc(100% - 36px);}',
@@ -174,15 +179,7 @@
   class YourWebHeroCarousel extends HTMLElement {
     static get observedAttributes() {
       return [
-        'media-1','media-2','media-3','media-4',
-        'image-1','image-2','image-3','image-4',
-        'video-1','video-2','video-3','video-4',
-        'media-type-1','media-type-2','media-type-3','media-type-4',
-        'bg-1','bg-2','bg-3','bg-4',
-        'panel-1','panel-2','panel-3','panel-4',
-        'label-1','label-2','label-3','label-4',
-        'caption-1','caption-2','caption-3','caption-4',
-        'title-1','title-2','title-3','title-4',
+        'slides',
         'brand','title','cta-label','cta-href',
         'font-family','display-font','text-color','button-bg','button-text',
         'height','min-height','title-size',
@@ -204,10 +201,13 @@
       this._locked            = false;
       this._timer             = 0;
       this._observer          = null;
+      this._attrObserver      = null;
+      this._slideCount        = 0;
       this._isVisible         = true;
       this._isHovered         = false;
       this._touchStartX       = 0;
       this._interactionsSetup = false;
+      this._renderQueued      = false;
       this.attachShadow({ mode: 'open' });
       var style = document.createElement('style');
       style.textContent = STYLE;
@@ -221,18 +221,37 @@
       this._applyVars();
       this._render();
       this._setupInteractions();
+      this._watchAttributes();
     }
 
     disconnectedCallback() {
       this._stopAutoplay();
       if (this._observer) { this._observer.disconnect(); this._observer = null; }
+      if (this._attrObserver) { this._attrObserver.disconnect(); this._attrObserver = null; }
     }
 
     attributeChangedCallback() {
       if (!this.shadowRoot || !this._root) return;
-      this._applyVars();
-      this._render();
-      this._startAutoplay();
+      this._queueRender();
+    }
+
+    _watchAttributes() {
+      if (this._attrObserver || typeof MutationObserver === 'undefined') return;
+      this._attrObserver = new MutationObserver(() => this._queueRender());
+      this._attrObserver.observe(this, { attributes: true });
+    }
+
+    _queueRender() {
+      if (this._renderQueued) return;
+      this._renderQueued = true;
+      var self = this;
+      Promise.resolve().then(function () {
+        self._renderQueued = false;
+        if (!self.shadowRoot || !self._root) return;
+        self._applyVars();
+        self._render();
+        self._startAutoplay();
+      });
     }
 
     /* ── helpers ── */
@@ -251,23 +270,75 @@
       return v == null || v === '' ? fallback : v;
     }
 
+    _parseSlidesJson() {
+      var raw = this.getAttribute('slides');
+      if (!raw) return null;
+      try {
+        var parsed = JSON.parse(raw);
+        if (!Array.isArray(parsed) || !parsed.length) return null;
+        var globalTitle = this._getAttr('title', 'Hero animado configurable');
+        return parsed.map(function (item, idx) {
+          var base = DEFAULTS[idx % DEFAULTS.length];
+          var media = item.media || item.image || item.video || base.media;
+          var type = item.type || item['media-type'] || (item.video ? 'video' : null);
+          return {
+            media: media,
+            type: type || (/\.(mp4|webm|ogg)(\?|#|$)/i.test(String(media)) ? 'video' : 'image'),
+            bg: item.bg || base.bg,
+            panel: item.panel || base.panel,
+            label: item.label != null ? String(item.label) : base.label,
+            caption: item.caption != null ? String(item.caption) : base.caption,
+            title: item.title != null ? String(item.title) : globalTitle
+          };
+        });
+      } catch (e) {
+        return null;
+      }
+    }
+
+    _discoverSlideCount() {
+      var max = 0;
+      var names = this.getAttributeNames ? this.getAttributeNames() : [];
+      var re = /^(?:media|image|video|bg|panel|label|caption|title|media-type)-(\d+)$/;
+      for (var i = 0; i < names.length; i++) {
+        var m = names[i].match(re);
+        if (m) {
+          var n = parseInt(m[1], 10);
+          if (n > max) max = n;
+        }
+      }
+      return max;
+    }
+
     _getSlides() {
+      var fromJson = this._parseSlidesJson();
+      if (fromJson) {
+        this._slideCount = fromJson.length;
+        return fromJson;
+      }
+
+      var count = this._discoverSlideCount();
+      if (count < 1) count = DEFAULTS.length;
+
       var slides = [];
-      for (var i = 1; i <= 4; i++) {
-        var base  = DEFAULTS[i - 1];
+      var globalTitle = this._getAttr('title', 'Hero animado configurable');
+      for (var i = 1; i <= count; i++) {
+        var base  = DEFAULTS[(i - 1) % DEFAULTS.length];
         var video = this.getAttribute('video-' + i);
         var image = this.getAttribute('image-' + i);
         var media = this.getAttribute('media-' + i) || video || image || base.media;
         var type  = this.getAttribute('media-type-' + i) || (video ? 'video' : this._guessType(media));
         slides.push({
-          media, type,
+          media: media,
+          type: type,
           bg:      this._getAttr('bg-'      + i, base.bg),
           panel:   this._getAttr('panel-'   + i, base.panel),
           label:   this._getAttr('label-'   + i, base.label),
           caption: this._getAttr('caption-' + i, base.caption),
-          title:   this._getAttr('title-'   + i, this._getAttr('title', 'Hero animado configurable'))
+          title:   this._getAttr('title-'   + i, globalTitle)
         });
       }
+      this._slideCount = slides.length;
       return slides;
     }
 
@@ -276,10 +347,15 @@
     }
 
     _roleFor(index) {
+      var N = this._slideCount || 0;
+      if (!N) return 'hidden';
       if (index === this._activeIndex) return 'center';
-      if (index === (this._activeIndex + 3) % 4) return 'left';
-      if (index === (this._activeIndex + 1) % 4) return 'right';
-      return 'back';
+      if (N <= 1) return 'hidden';
+      if (index === (this._activeIndex + 1) % N) return 'right';
+      if (index === (this._activeIndex - 1 + N) % N) return 'left';
+      if (N >= 4 && index === (this._activeIndex + 2) % N) return 'back';
+      if (N === 3) return 'back';
+      return 'hidden';
     }
 
     _applyVars() {
@@ -315,6 +391,8 @@
 
     _render() {
       var slides  = this._getSlides();
+      if (!slides.length) return;
+      if (this._activeIndex >= slides.length) this._activeIndex = 0;
       var active  = slides[this._activeIndex] || slides[0];
       this.style.setProperty('--yw-active-bg', active.bg);
 
@@ -407,16 +485,23 @@
 
     _navigate(dir) {
       if (this._locked) return;
+      var slides = this._getSlides();
+      var N = slides.length;
+      if (N < 1) return;
       var dur = parseInt(this._getAttr('transition-ms','650'), 10) || 650;
       this._locked = true;
-      this._activeIndex = dir === 'prev' ? (this._activeIndex + 3) % 4 : (this._activeIndex + 1) % 4;
+      this._activeIndex = dir === 'prev'
+        ? (this._activeIndex - 1 + N) % N
+        : (this._activeIndex + 1) % N;
       this._updateScene();
       window.setTimeout(() => { this._locked = false; }, dur);
       this._startAutoplay();
     }
 
     _goTo(target) {
-      if (this._locked || target === this._activeIndex) return;
+      var slides = this._getSlides();
+      var N = slides.length;
+      if (this._locked || target === this._activeIndex || target < 0 || target >= N) return;
       var dur = parseInt(this._getAttr('transition-ms','650'), 10) || 650;
       this._locked = true;
       this._activeIndex = target;
