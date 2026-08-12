@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>YOURWEB Hero Carousel — Guía para diseñadores</title>
+  <style>
+    :root {
+      --ink: #141414;
+      --muted: #5c5c5c;
+      --line: #e6e6e6;
+      --bg: #f7f5f2;
+      --card: #ffffff;
+      --accent: #1f6b4a;
+      --accent-soft: #e8f5ee;
+      --warn: #8a5a00;
+      --warn-bg: #fff6e5;
+      --code: #0f172a;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(1000px 400px at 10% -10%, #dfece6 0%, transparent 55%),
+        var(--bg);
+      line-height: 1.5;
+    }
+    .wrap { width: min(920px, calc(100% - 32px)); margin: 0 auto; padding: 40px 0 80px; }
+    header {
+      margin-bottom: 36px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--line);
+    }
+    .eyebrow {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    h1 { margin: 0 0 10px; font-size: clamp(28px, 5vw, 40px); line-height: 1.1; }
+    h2 { margin: 0 0 12px; font-size: 22px; }
+    h3 { margin: 22px 0 8px; font-size: 16px; }
+    p { margin: 0 0 12px; color: var(--muted); }
+    .lead { font-size: 17px; color: var(--ink); max-width: 62ch; }
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 20px;
+    }
+    nav a {
+      text-decoration: none;
+      color: var(--ink);
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    nav a:hover { border-color: #bbb; }
+    section {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 22px 22px 18px;
+      margin: 18px 0;
+      box-shadow: 0 8px 24px rgba(0,0,0,.03);
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th, td {
+      text-align: left;
+      vertical-align: top;
+      padding: 10px 8px;
+      border-bottom: 1px solid var(--line);
+    }
+    th { font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+    code, .mono {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .92em;
+    }
+    code {
+      background: #f1f1f1;
+      padding: 2px 6px;
+      border-radius: 6px;
+      color: var(--code);
+    }
+    pre {
+      margin: 12px 0 0;
+      padding: 14px;
+      background: #111;
+      color: #f3f3f3;
+      border-radius: 12px;
+      overflow: auto;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+    .note, .tip, .warn {
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin: 14px 0 0;
+      font-size: 14px;
+    }
+    .note { background: var(--accent-soft); color: #154833; }
+    .tip { background: #eef2ff; color: #27357a; }
+    .warn { background: var(--warn-bg); color: var(--warn); }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    @media (max-width: 720px) {
+      .grid-2 { grid-template-columns: 1fr; }
+      .wrap { padding-top: 24px; }
+    }
+    .pill {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: #eee;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .pill.on { background: #d9f5e5; color: #146c43; }
+    .pill.off { background: #ffe1e1; color: #9b1c1c; }
+    footer { margin-top: 28px; color: var(--muted); font-size: 13px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="eyebrow">YOURWEB · Custom Element</div>
+      <h1>Hero Carousel — Guía para diseñadores</h1>
+      <p class="lead">
+        Este documento explica cada campo que puedes configurar en Wix
+        (<strong>Set Attributes</strong>), cómo agregar más slides y cómo ocultar piezas.
+      </p>
+      <div class="note">
+        <strong>Tag del elemento:</strong> <code>yourweb-hero-carousel</code><br />
+        En Wix: Custom Element → Server URL del script → Tag name = <code>yourweb-hero-carousel</code> → Set Attributes.
+      </div>
+      <nav>
+        <a href="#wix">Cómo usarlo en Wix</a>
+        <a href="#slides">Agregar / quitar slides</a>
+        <a href="#ocultar">Cómo ocultar cosas</a>
+        <a href="#por-slide">Campos por slide</a>
+        <a href="#globales">Campos globales</a>
+        <a href="#animacion">Animación</a>
+        <a href="#tamano">Tamaño y posición</a>
+        <a href="#ejemplo">Ejemplo completo</a>
+      </nav>
+    </header>
+
+    <section id="wix">
+      <h2>1. Cómo usarlo en Wix</h2>
+      <ol>
+        <li>Agrega un <strong>Custom Element</strong>.</li>
+        <li>Pega la URL del script (jsDelivr / GitHub).</li>
+        <li>Tag name: <code>yourweb-hero-carousel</code>.</li>
+        <li>En <strong>Set Attributes</strong> agrega pares Name / Value (ej. Name: <code>brand</code>, Value: <code>PETCARE</code>).</li>
+        <li>Estira el Custom Element al tamaño que quieras: el hero llena ese espacio.</li>
+      </ol>
+      <div class="tip">
+        Todos los campos son opcionales. Si no pones nada, se ven 4 slides demo.
+      </div>
+    </section>
+
+    <section id="slides">
+      <h2>2. Cómo agregar o quitar slides</h2>
+      <p>Los slides son <strong>ilimitados</strong>. Solo sube el número: 1, 2, 3, 4, 5, 6…</p>
+
+      <h3>Agregar un slide nuevo (ej. el #5)</h3>
+      <p>En Set Attributes crea estos campos (mínimo la imagen o video):</p>
+      <pre>image-5 = https://tu-cdn.com/mascota-5.png
+bg-5 = #9B59B6
+label-5 = Kira
+caption-5 = Nutrición
+title-5 = Plan nutricional</pre>
+
+      <h3>Agregar el #6, #7, etc.</h3>
+      <p>Igual: <code>image-6</code>, <code>bg-6</code>, <code>label-6</code>…</p>
+
+      <h3>Quitar un slide</h3>
+      <p>Borra sus atributos en Wix (<code>image-5</code>, <code>bg-5</code>, etc.). Si dejas un “hueco” en la numeración, el componente toma el número más alto que exista (ej. si hay 1–3 y 5, cuenta hasta 5).</p>
+
+      <div class="warn">
+        <strong>Importante:</strong> en pantalla se ven máximo 4 figuras a la vez (centro, izquierda, derecha, atrás).
+        Si tienes 8 slides, los demás entran al rotar el carrusel.
+      </div>
+
+      <h3>Imagen o video</h3>
+      <table>
+        <thead>
+          <tr><th>Campo</th><th>Qué hace</th><th>Ejemplo</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>image-N</code></td>
+            <td>URL de imagen (PNG/JPG/WebP/GIF)</td>
+            <td><code>https://…/perro.png</code></td>
+          </tr>
+          <tr>
+            <td><code>video-N</code></td>
+            <td>URL de video (mp4/webm). Mute + loop</td>
+            <td><code>https://…/clip.mp4</code></td>
+          </tr>
+          <tr>
+            <td><code>media-N</code></td>
+            <td>URL genérica (detecta video por extensión)</td>
+            <td><code>https://…/archivo.mp4</code></td>
+          </tr>
+          <tr>
+            <td><code>media-type-N</code></td>
+            <td>Fuerza tipo: <code>image</code> o <code>video</code></td>
+            <td><code>video</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="ocultar">
+      <h2>3. Cómo ocultar cosas</h2>
+      <table>
+        <thead>
+          <tr><th>Qué quieres ocultar</th><th>Qué poner en Set Attributes</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Botón CTA (Agendar, etc.)</td>
+            <td>No agregues <code>cta-label</code> (si no existe, no se muestra)</td>
+          </tr>
+          <tr>
+            <td>Flechas ‹ ›</td>
+            <td><code>controls</code> = <code>off</code> <span class="pill off">default: ocultas</span></td>
+          </tr>
+          <tr>
+            <td>Textura grain (ruido)</td>
+            <td><code>grain</code> = <code>off</code></td>
+          </tr>
+          <tr>
+            <td>Autoplay (que no rote solo)</td>
+            <td><code>autoplay</code> = <code>off</code></td>
+          </tr>
+          <tr>
+            <td>Texto brand (arriba izquierda)</td>
+            <td>Pon <code>brand</code> = un espacio <code> </code>, o el texto que quieras. No hay “hide” dedicado; si no quieres verlo, usa un espacio o pídele a desarrollo ocultarlo.</td>
+          </tr>
+          <tr>
+            <td>Puntos indicadores (dots)</td>
+            <td>En móvil ya se ocultan solos. En desktop siempre se muestran (si hace falta ocultarlos, pedirlo a desarrollo).</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="tip">
+        Valores típicos de encendido/apagado: <code>on</code> / <code>off</code> (también sirve <code>true</code>/<code>false</code>).
+      </div>
+    </section>
+
+    <section id="por-slide">
+      <h2>4. Campos por cada slide (N = 1, 2, 3…)</h2>
+      <table>
+        <thead>
+          <tr><th>Name</th><th>Qué es</th><th>Default / nota</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>image-N</code> / <code>video-N</code> / <code>media-N</code></td>
+            <td>Media del personaje</td>
+            <td>Demo SVG si no pones nada</td>
+          </tr>
+          <tr>
+            <td><code>bg-N</code></td>
+            <td>Color de fondo del hero cuando ese slide está activo</td>
+            <td>Colores demo (coral, verde, rosa, azul…)</td>
+          </tr>
+          <tr>
+            <td><code>panel-N</code></td>
+            <td>Color de panel asociado al slide</td>
+            <td>Opcional</td>
+          </tr>
+          <tr>
+            <td><code>label-N</code></td>
+            <td>Nombre corto (ej. Luna)</td>
+            <td>Se ve arriba del título como “Luna / Chequeo…”</td>
+          </tr>
+          <tr>
+            <td><code>caption-N</code></td>
+            <td>Frase corta al lado del label</td>
+            <td>Ej. “Chequeo preventivo”</td>
+          </tr>
+          <tr>
+            <td><code>title-N</code></td>
+            <td>Título grande de ese slide</td>
+            <td>Si no existe, usa el <code>title</code> global</td>
+          </tr>
+        </tbody>
+      </table>
+      <pre>label-1 = Luna
+caption-1 = Chequeo preventivo
+title-1 = Cuidado moderno
+bg-1 = rgb(244, 132, 95)
+image-1 = https://…/luna.png</pre>
+    </section>
+
+    <section id="globales">
+      <h2>5. Campos globales (de toda la sección)</h2>
+      <table>
+        <thead>
+          <tr><th>Name</th><th>Qué es</th><th>Default</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>brand</code></td>
+            <td>Texto arriba a la izquierda</td>
+            <td><code>YOURWEB HERO</code></td>
+          </tr>
+          <tr>
+            <td><code>title</code></td>
+            <td>Título general (fallback si no hay <code>title-N</code>)</td>
+            <td><code>Hero animado configurable</code></td>
+          </tr>
+          <tr>
+            <td><code>cta-label</code></td>
+            <td>Texto del botón</td>
+            <td>Vacío = sin botón</td>
+          </tr>
+          <tr>
+            <td><code>cta-href</code></td>
+            <td>Link del botón</td>
+            <td><code>#</code></td>
+          </tr>
+          <tr>
+            <td><code>font-family</code></td>
+            <td>Fuente del cuerpo / UI</td>
+            <td>Inter / system</td>
+          </tr>
+          <tr>
+            <td><code>display-font</code></td>
+            <td>Fuente del título grande</td>
+            <td>Arial Black / Montserrat</td>
+          </tr>
+          <tr>
+            <td><code>text-color</code></td>
+            <td>Color del texto</td>
+            <td><code>#fff</code></td>
+          </tr>
+          <tr>
+            <td><code>button-bg</code></td>
+            <td>Fondo del CTA</td>
+            <td><code>#fff</code></td>
+          </tr>
+          <tr>
+            <td><code>button-text</code></td>
+            <td>Texto del CTA</td>
+            <td><code>#171717</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="animacion">
+      <h2>6. Animación y controles</h2>
+      <table>
+        <thead>
+          <tr><th>Name</th><th>Valores</th><th>Default</th><th>Nota</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>autoplay</code></td>
+            <td><code>on</code> / <code>off</code></td>
+            <td><span class="pill on">on</span></td>
+            <td>Pausa al pasar el mouse</td>
+          </tr>
+          <tr>
+            <td><code>interval</code></td>
+            <td>milisegundos</td>
+            <td><code>1000</code></td>
+            <td>1000 = 1 segundo. Mínimo útil ~400</td>
+          </tr>
+          <tr>
+            <td><code>transition-ms</code></td>
+            <td>milisegundos</td>
+            <td><code>650</code></td>
+            <td>Duración del movimiento</td>
+          </tr>
+          <tr>
+            <td><code>controls</code></td>
+            <td><code>on</code> / <code>off</code></td>
+            <td><span class="pill off">off</span></td>
+            <td>Flechas prev/next</td>
+          </tr>
+          <tr>
+            <td><code>grain</code></td>
+            <td><code>on</code> / <code>off</code></td>
+            <td><span class="pill on">on</span></td>
+            <td>Textura de película</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="note">
+        También se puede navegar con teclado (← →) y swipe en móvil.
+      </div>
+    </section>
+
+    <section id="tamano">
+      <h2>7. Tamaño y posición (avanzado)</h2>
+      <p>Úsalos si quieres afinar el layout. Aceptan <code>%</code>, <code>px</code>, <code>clamp()</code>, etc.</p>
+
+      <div class="grid-2">
+        <div>
+          <h3>Alto del bloque</h3>
+          <ul>
+            <li><code>height</code> — default <code>100%</code> (llena el Custom Element)</li>
+            <li><code>min-height</code> — default <code>320px</code></li>
+            <li><code>title-size</code> — tamaño del H1</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Figuras (alto / escala)</h3>
+          <ul>
+            <li><code>center-height</code> / <code>-desktop</code> / <code>-tablet</code> / <code>-mobile</code></li>
+            <li><code>side-height</code> (+ breakpoints)</li>
+            <li><code>back-height</code> (+ breakpoints)</li>
+            <li><code>center-scale</code>, <code>side-scale</code>, <code>back-scale</code></li>
+          </ul>
+        </div>
+      </div>
+
+      <h3>Posiciones</h3>
+      <ul>
+        <li>Desktop: <code>center-bottom</code>, <code>side-bottom</code>, <code>back-bottom</code>, <code>left-pos</code>, <code>right-pos</code>, <code>stage-center</code></li>
+        <li>Mobile: mismos con sufijo <code>-mobile</code> (ej. <code>left-pos-mobile</code>)</li>
+      </ul>
+      <div class="tip">
+        En la mayoría de casos basta con redimensionar el Custom Element en Wix y no tocar estas variables.
+      </div>
+    </section>
+
+    <section id="ejemplo">
+      <h2>8. Ejemplo recomendado (para copiar mentalmente a Wix)</h2>
+      <pre>brand = PETCARE
+title = Cuidado para mascotas
+cta-label = Agendar cita
+cta-href = /contacto
+
+image-1 = https://…/pet-1.png
+bg-1 = rgb(244,132,95)
+label-1 = Luna
+caption-1 = Chequeo preventivo
+title-1 = Cuidado preventivo
+
+image-2 = https://…/pet-2.png
+bg-2 = rgb(107,191,122)
+label-2 = Max
+caption-2 = Vacunas
+
+image-3 = https://…/pet-3.png
+bg-3 = rgb(232,130,180)
+label-3 = Mia
+
+image-4 = https://…/pet-4.png
+bg-4 = rgb(110,181,255)
+label-4 = Nube
+
+image-5 = https://…/pet-5.png
+bg-5 = #9B59B6
+label-5 = Kira
+caption-5 = Nutrición
+
+autoplay = on
+interval = 1200
+controls = off
+grain = on</pre>
+    </section>
+
+    <section>
+      <h2>Checklist rápido para el diseñador</h2>
+      <ul>
+        <li>☐ ¿Cuántos slides? → crea <code>image-1</code>…<code>image-N</code></li>
+        <li>☐ ¿Color de cada slide? → <code>bg-N</code></li>
+        <li>☐ ¿Textos? → <code>label-N</code>, <code>caption-N</code>, <code>title-N</code></li>
+        <li>☐ ¿Botón? → solo si hay <code>cta-label</code> (+ <code>cta-href</code>)</li>
+        <li>☐ ¿Sin flechas? → deja <code>controls</code> en off o no lo pongas</li>
+        <li>☐ ¿Sin autoplay? → <code>autoplay=off</code></li>
+        <li>☐ ¿Sin grain? → <code>grain=off</code></li>
+      </ul>
+    </section>
+
+    <footer>
+      Archivo para compartir con diseño · YOURWEB Hero Carousel · slides ilimitados<br />
+      Repo: HeroCarouselYourWeb · Tag: <span class="mono">yourweb-hero-carousel</span>
+    </footer>
+  </div>
+</body>
+</html>
