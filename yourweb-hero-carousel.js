@@ -78,7 +78,7 @@
     '    height    var(--yw-transition-ms) cubic-bezier(.4,0,.2,1);}',
 
     '.figure{position:relative;width:100%;height:100%;overflow:hidden;}',
-    '.media{width:100%;height:100%;object-fit:cover;object-position:bottom center;display:block;}',
+    '.media{width:100%;height:100%;object-fit:contain;object-position:bottom center;display:block;}',
 
     /* Roles */
     '.item[data-role=center]{left:var(--yw-stage-center);bottom:var(--yw-center-bottom);height:var(--yw-center-height);z-index:20;opacity:1;filter:blur(0px);transform:translateX(-50%) scale(var(--yw-center-scale));}',
@@ -428,8 +428,28 @@
       this._root.querySelectorAll('[data-goto]').forEach(dot =>
         dot.addEventListener('click', () => this._goTo(parseInt(dot.getAttribute('data-goto'), 10)))
       );
+      this._root.querySelectorAll('.item').forEach(item => this._wireMediaRatio(item));
 
       this._updateScene();
+    }
+
+    // Matches each item's box to its media's real aspect ratio so the
+    // image never gets cropped or letterboxed inside a mismatched box.
+    _wireMediaRatio(item) {
+      var media = item.querySelector('.media');
+      if (!media) return;
+      var apply = () => {
+        var w = media.tagName === 'VIDEO' ? media.videoWidth  : media.naturalWidth;
+        var h = media.tagName === 'VIDEO' ? media.videoHeight : media.naturalHeight;
+        if (w && h) item.style.aspectRatio = w + ' / ' + h;
+      };
+      if (media.tagName === 'VIDEO') {
+        if (media.readyState >= 1) apply();
+        else media.addEventListener('loadedmetadata', apply, { once: true });
+      } else {
+        if (media.complete) apply();
+        else media.addEventListener('load', apply, { once: true });
+      }
     }
 
     _renderItem(slide, index) {
